@@ -1,0 +1,108 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ab_solid">
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_weight="1"
+        android:layout_height="fill_parent" >
+
+		<Button
+            style="@style/class_select_button"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/class_druid_selector"
+            android:text="@string/druid" /> 
+
+<!--         <ImageButton
+            android:id="@+id/imageButton1"
+            style="@style/class_select_button"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:src="@drawable/druid" /> -->
+
+        <Button
+            style="@style/class_select_button"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/class_hunter_selector"
+            android:text="@string/hunter" />
+
+        <Button
+            style="@style/class_select_button"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/class_mage_selector"
+            android:text="@string/mage" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_weight="1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <Button
+            style="@style/class_select_button"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/class_paladin_selector"
+            android:text="@string/paladin" />
+
+        <Button
+            style="@style/class_select_button"
+            android:background="@drawable/class_priest_selector"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/priest" />
+
+        <Button
+            style="@style/class_select_button"
+            android:background="@drawable/class_rogue_selector"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/rogue" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_weight="1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <Button
+            style="@style/class_select_button"
+            android:background="@drawable/class_shaman_selector"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/shaman" />
+
+        <Button
+            style="@style/class_select_button"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/class_warlock_selector"
+            android:text="@string/warlock" />
+
+        <Button
+            style="@style/class_select_button"
+            android:background="@drawable/class_warrior_selector"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/warrior" />
+
+    </TableRow>
+
+</TableLayout>

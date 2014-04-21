@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- <string name="app_name">K酱的炉石旅店</string> -->
+    <string name="app_name">旅店老板的女儿</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">设置</string>
+    <string name="action_search">搜索</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="loading_finish">已经没有多余的卡啦~</string>
+    <string name="search_hint">搜索你想了解的卡吧~</string>
+    <string name="card_list">卡牌列表</string>
+    <string name="back_press_again_to_exit">再按下返回键退出</string>
+    <string name="collection">收藏</string>
+    
+    <string name="select_class">选择职业</string>
+
+    <!-- 设置页面相关字符串 -->
+    <string name="filter_collectable">过滤不可收集卡牌</string>
+    <string name="filter_summary">打开该功能后，卡牌列表中只包含能作为手牌的卡牌</string>
+    <string name="about_card_display">显示</string>
+    <string name="about">关于</string>
+    <string name="feedback">意见反馈</string>
+    <string name="developer_name">PurpleK Fung</string>
+    <string name="developer">开发者</string>
+    <string name="version">版本号</string>
+
+    <!-- 职业 -->
+    <string name="warrior">战士</string>
+    <string name="hunter">猎人</string>
+    <string name="shaman">萨满</string>
+    <string name="mage">法师</string>
+    <string name="druid">德鲁伊</string>
+    <string name="paladin">圣骑士</string>
+    <string name="priest">牧师</string>
+    <string name="warlock">术士</string>
+    <string name="rogue">盗贼</string>
+
+    <!-- 类型 -->
+    <string name="understrapper">仆从</string>
+    <string name="magic">法术</string>
+    <string name="hero">英雄</string>
+    <string name="ability">英雄能力</string>
+    <string name="weapon">武器</string>
+
+    <!-- 仆从种族 -->
+    <string name="merman">鱼人</string>
+    <string name="demon">恶魔</string>
+    <string name="animals">野兽</string>
+    <string name="totem">图腾</string>
+    <string name="pirate">海盗</string>
+    <string name="dragon">龙</string>
+
+    <!-- 卡牌详细信息 -->
+    <string name="_class">职业</string>
+    <string name="type">类型</string>
+    <string name="rarity">稀有度</string>
+    <string name="flavor">介绍</string>
+    <string name="race">种族</string>
+    <string name="cost">费用</string>
+    <string name="power">特性</string>
+
+</resources>

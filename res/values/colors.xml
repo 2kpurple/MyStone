@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#808080</color>
+    <color name="dimgray">#696969</color>
+    <color name="primary_text_color">#99000000</color>
+    <color name="sliding_drawer_text_color">#ff58585b</color>
+    <color name="sliding_drawer_background_color">#fff5f5f5</color>
+    <color name="hint_text_color">#4d000000</color>
+    <color name="default_background_color">#ffdce1e3</color>
+    <color name="actionbar_title_background">#ff33b5e5</color>
+    <color name="card_item_background">#fff5f5f5</color>
+    <color name="card_primary_text_color">#ff626262</color>
+    <color name="pressed_state_color">#12000000</color>
+    <color name="note_default_color">#fff5f5f5</color>
+    
+    <color name="transparent">#00000000</color>
+    
+    <color name="stroke_gray">#FF777777</color>
+    
+    <!-- 卡牌的颜色 -->
+    <color name="orange">#ffFF8C00</color>
+    <color name="purple">#ff800080</color>
+    <color name="blue">#ff4169e1</color>
+    <color name="green">#ff2E8B57</color>
+    
+    <!-- 职业的颜色 -->
+    <color name="warrior">#FFC69B6D</color>
+    <color name="hunter">#FFAAD372</color>
+    <color name="shaman">#FF2359FF</color>
+    <color name="mage">#FF68CCEF</color>
+    <color name="druid">#FFFF7C0A</color>
+    <color name="paladin">#FFF48CBA</color>
+    <color name="priest">#FFF0EBE0</color>
+    <color name="warlock">#FF9382C9</color>
+    <color name="rogue">#FFFFF468</color>
+</resources>

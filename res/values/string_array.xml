@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="filters_array">
+        <item>全部</item>
+        <item>职业</item>
+        <item>类型</item>
+        <item>种族</item>
+        <item>稀有度</item>
+        <item>费用</item>
+        <item>特性</item>
+    </string-array>
+    <string-array name="class_array">
+        <item>全部</item>
+        <item>中立</item>
+        <item>德鲁伊</item>
+        <item>猎人</item>
+        <item>法师</item>
+        <item>圣骑士</item>
+        <item>牧师</item>
+        <item>盗贼</item>
+        <item>萨满</item>
+        <item>术士</item>
+        <item>战士</item>
+        <item>梦境</item>
+    </string-array>
+    <string-array name="power_array">
+        <item>全部</item>
+        <item>战吼</item>
+        <item>冲锋</item>
+        <item>连击</item>
+        <item>亡语</item>
+        <item>圣盾</item>
+        <item>激怒</item>
+        <item>冻结</item>
+        <item>奥秘</item>
+        <item>沉默</item>
+        <item>潜行</item>
+        <item>嘲讽</item>
+        <item>风怒</item>
+    </string-array>
+    <string-array name="race_array">
+        <item>全部</item>
+        <item>鱼人</item>
+        <item>恶魔</item>
+        <item>野兽</item>
+        <item>图腾</item>
+        <item>海盗</item>
+        <item>龙</item>
+    </string-array>
+    <string-array name="rarity_array">
+        <item>全部</item>
+        <item>免费</item>
+        <item>普通</item>
+        <item>稀有</item>
+        <item>史诗</item>
+        <item>传说</item>
+    </string-array>
+    <string-array name="cost_array">
+        <item>全部</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7+</item>
+    </string-array>
+    <string-array name="type_array">
+        <item>全部</item>
+        <item>英雄</item>
+        <item>仆从</item>
+        <item>法术</item>
+        <item>武器</item>
+        <item>英雄能力</item>
+    </string-array>
+    <string-array name="power_en_array">
+        <item>battlecry</item>
+        <item>charge</item>
+        <item>combo</item>
+        <item>deathrattle</item>
+        <item>divine_shield</item>
+        <item>enrage</item>
+        <item>freeze</item>
+        <item>secret</item>
+        <item>silence</item>
+        <item>stealth</item>
+        <item>taunt</item>
+        <item>windfury</item>
+    </string-array>
+
+</resources>
