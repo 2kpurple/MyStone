@@ -10,6 +10,7 @@
         android:layout_height="fill_parent" >
 
 		<Button
+		    android:id="@+id/class_select_druid"
             style="@style/class_select_button"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -26,6 +27,7 @@
             android:src="@drawable/druid" /> -->
 
         <Button
+            android:id="@+id/class_select_hunter"
             style="@style/class_select_button"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -34,6 +36,7 @@
             android:text="@string/hunter" />
 
         <Button
+            android:id="@+id/class_select_mage"
             style="@style/class_select_button"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -49,6 +52,7 @@
         android:layout_height="fill_parent" >
 
         <Button
+            android:id="@+id/class_select_paladin"
             style="@style/class_select_button"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -57,6 +61,7 @@
             android:text="@string/paladin" />
 
         <Button
+            android:id="@+id/class_select_priest"
             style="@style/class_select_button"
             android:background="@drawable/class_priest_selector"
             android:layout_width="fill_parent"
@@ -65,6 +70,7 @@
             android:text="@string/priest" />
 
         <Button
+            android:id="@+id/class_select_rogue"
             style="@style/class_select_button"
             android:background="@drawable/class_rogue_selector"
             android:layout_width="fill_parent"
@@ -80,6 +86,7 @@
         android:layout_height="fill_parent" >
 
         <Button
+            android:id="@+id/class_select_shaman"
             style="@style/class_select_button"
             android:background="@drawable/class_shaman_selector"
             android:layout_width="fill_parent"
@@ -88,6 +95,7 @@
             android:text="@string/shaman" />
 
         <Button
+            android:id="@+id/class_select_warlock"
             style="@style/class_select_button"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -96,6 +104,7 @@
             android:text="@string/warlock" />
 
         <Button
+            android:id="@+id/class_select_warrior"
             style="@style/class_select_button"
             android:background="@drawable/class_warrior_selector"
             android:layout_width="fill_parent"
