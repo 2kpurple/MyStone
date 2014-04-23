@@ -13,7 +13,6 @@
     <string name="card_list">卡牌列表</string>
     <string name="back_press_again_to_exit">再按下返回键退出</string>
     <string name="collection">收藏</string>
-    
     <string name="select_class">选择职业</string>
 
     <!-- 设置页面相关字符串 -->
@@ -60,5 +59,6 @@
     <string name="race">种族</string>
     <string name="cost">费用</string>
     <string name="power">特性</string>
+    <string name="title_activity_collection_detail">CollectionDetailActivity</string>
 
 </resources>

@@ -98,9 +98,9 @@ public final class R {
         public static final int note_shadow_activated=0x7f02001b;
     }
     public static final class id {
-        public static final int action_collection=0x7f0b0026;
-        public static final int action_search=0x7f0b0027;
-        public static final int action_settings=0x7f0b0028;
+        public static final int action_collection=0x7f0b0027;
+        public static final int action_search=0x7f0b0028;
+        public static final int action_settings=0x7f0b0026;
         public static final int card_atk=0x7f0b0023;
         public static final int card_cost=0x7f0b0022;
         public static final int card_durability=0x7f0b0025;
@@ -143,17 +143,19 @@ public final class R {
     public static final class layout {
         public static final int activity_card_detail=0x7f030000;
         public static final int activity_class_select=0x7f030001;
-        public static final int activity_main=0x7f030002;
-        public static final int activity_settings=0x7f030003;
-        public static final int filter_child_item=0x7f030004;
-        public static final int filter_item=0x7f030005;
-        public static final int fragment_detail=0x7f030006;
-        public static final int fragment_main=0x7f030007;
-        public static final int list_footview=0x7f030008;
-        public static final int listitem_card_info=0x7f030009;
+        public static final int activity_collection_detail=0x7f030002;
+        public static final int activity_main=0x7f030003;
+        public static final int activity_settings=0x7f030004;
+        public static final int filter_child_item=0x7f030005;
+        public static final int filter_item=0x7f030006;
+        public static final int fragment_detail=0x7f030007;
+        public static final int fragment_main=0x7f030008;
+        public static final int list_footview=0x7f030009;
+        public static final int listitem_card_info=0x7f03000a;
     }
     public static final class menu {
-        public static final int main=0x7f0a0000;
+        public static final int collection_detail=0x7f0a0000;
+        public static final int main=0x7f0a0001;
     }
     public static final class string {
         /**  卡牌详细信息 
@@ -204,6 +206,7 @@ public final class R {
         public static final int search_hint=0x7f080007;
         public static final int select_class=0x7f08000b;
         public static final int shaman=0x7f080016;
+        public static final int title_activity_collection_detail=0x7f08002f;
         public static final int totem=0x7f080025;
         public static final int type=0x7f080029;
         /**  类型 
