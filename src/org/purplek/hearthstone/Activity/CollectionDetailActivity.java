@@ -1,8 +1,14 @@
-package org.purplek.hearthstone;
+package org.purplek.hearthstone.Activity;
+
+import org.purplek.hearthstone.R;
+import org.purplek.hearthstone.R.id;
+import org.purplek.hearthstone.R.layout;
+import org.purplek.hearthstone.R.menu;
 
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,12 +18,18 @@ import android.view.ViewGroup;
 import android.os.Build;
 
 public class CollectionDetailActivity extends Activity {
+	
+	private int clas;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_collection_detail);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		Intent intent = getIntent();
+		clas = intent.getIntExtra("class", -1);
+		
 	}
 
 	@Override

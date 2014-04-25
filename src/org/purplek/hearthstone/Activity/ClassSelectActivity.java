@@ -67,26 +67,34 @@ public class ClassSelectActivity extends Activity {
 	 * @param v
 	 */
 	public void OnClick(View v){
-		Intent intent = null;
+		Intent intent = new Intent(this, CollectionDetailActivity.class);
 		switch (v.getId()) {
 		case R.id.class_select_druid:
 			intent.putExtra("class", 1);
 			break;
 		case R.id.class_select_hunter:
+			intent.putExtra("class", 2);
 			break;
 		case R.id.class_select_mage:
+			intent.putExtra("class", 3);
 			break;
 		case R.id.class_select_paladin:
+			intent.putExtra("class", 4);
 			break;
 		case R.id.class_select_priest:
+			intent.putExtra("class", 5);
 			break;
 		case R.id.class_select_rogue:
+			intent.putExtra("class", 6);
 			break;
 		case R.id.class_select_shaman:
+			intent.putExtra("class", 7);
 			break;
 		case R.id.class_select_warlock:
+			intent.putExtra("class", 8);
 			break;
 		case R.id.class_select_warrior:
+			intent.putExtra("class", 9);
 			break;
 		}
 		startActivity(intent);

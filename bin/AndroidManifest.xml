@@ -38,6 +38,10 @@
             android:name="org.purplek.hearthstone.Activity.ClassSelectActivity"
             android:label="@string/select_class" >
         </activity>
+        <activity
+            android:name="org.purplek.hearthstone.Activity.CollectionDetailActivity"
+            android:label="@string/title_activity_collection_detail" >
+        </activity>
     </application>
 
 </manifest>
