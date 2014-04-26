@@ -86,6 +86,20 @@
                 android:text="4"
                 android:textSize="12sp" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/card_select_count"
+            android:paddingRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/card_info_content"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:textSize="50sp"
+            android:textColor="@color/card_select_number_color"
+            android:layout_alignTop="@+id/card_info_content"
+            android:text="1" />
+
     </RelativeLayout>
 
 </LinearLayout>

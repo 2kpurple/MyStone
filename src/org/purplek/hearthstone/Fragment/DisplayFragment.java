@@ -10,6 +10,8 @@ import org.purplek.hearthstone.model.Card;
 import org.purplek.heartstone.utils.SharePrefUtil;
 
 import android.support.v4.app.Fragment;
+import android.R.integer;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,6 +27,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+
 import java.util.List;
 
 /**
@@ -37,7 +40,6 @@ public class DisplayFragment extends Fragment implements OnScrollListener, OnIte
     private ListView cardListView;
     private CardAdapter cardAdapter;
     private View footerView;
-    
     private int lastItem;
     
     public static final int ADD_DATA = 101;
@@ -58,7 +60,7 @@ public class DisplayFragment extends Fragment implements OnScrollListener, OnIte
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cardAdapter = new CardAdapter(getActivity());
+        cardAdapter = new CardAdapter(getActivity(), CardListManager.getInstance().getList());
     }
 
     @Override

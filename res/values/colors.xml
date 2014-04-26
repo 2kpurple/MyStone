@@ -12,6 +12,9 @@
     <color name="actionbar_title_background">#ff33b5e5</color>
     <color name="card_item_background">#fff5f5f5</color>
     <color name="card_primary_text_color">#ff626262</color>
+    
+    <color name="card_select_number_color">#55626262</color>
+    
     <color name="pressed_state_color">#12000000</color>
     <color name="note_default_color">#fff5f5f5</color>
     

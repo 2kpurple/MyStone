@@ -60,5 +60,6 @@
     <string name="cost">费用</string>
     <string name="power">特性</string>
     <string name="title_activity_collection_detail">CollectionDetailActivity</string>
+    <string name="title_activity_collection_edit">CollectionEditActivity</string>
 
 </resources>

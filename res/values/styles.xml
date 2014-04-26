@@ -30,7 +30,6 @@
     <style name="class_select_button">
         <item name="android:textColor">@color/primary_text_color</item>
         <item name="android:layout_margin">5dp</item>
-        <item name="android:onClick">onClick</item>
     </style>
 
 </resources>

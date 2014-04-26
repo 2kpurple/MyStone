@@ -1,23 +1,15 @@
 package org.purplek.hearthstone.adapter;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.purplek.hearthstone.CardListManager;
 import org.purplek.hearthstone.R;
-import org.purplek.hearthstone.R.id;
-import org.purplek.hearthstone.R.layout;
-import org.purplek.hearthstone.Activity.CardDetialActivity;
 import org.purplek.hearthstone.model.Card;
 
-import android.R.integer;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
@@ -28,23 +20,27 @@ public class CardAdapter extends BaseAdapter {
 	private Context context;
 	private LayoutInflater inflater;
 	private int currentItem;
+	private HashMap<String, Integer> selectedMap;
+	private List<Card> list;
 	
-	public CardAdapter(Context context){
+	public CardAdapter(Context context, List<Card> list){
 		this.context = context;
 		inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		this.list = list;
+		selectedMap = new HashMap<String, Integer>();
 	}
 	
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return CardListManager.getInstance().getList().size();
+		return list.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return CardListManager.getInstance().getList().get(position);
+		return list.get(position);
 	}
 
 	@Override
@@ -68,14 +64,13 @@ public class CardAdapter extends BaseAdapter {
 			holder.atkText = (TextView) convertView.findViewById(R.id.card_atk);
 			holder.duraText = (TextView) convertView.findViewById(R.id.card_durability);
 			holder.cardContent = (RelativeLayout) convertView.findViewById(R.id.item_content);
-			
-			
+			holder.countText = (TextView) convertView.findViewById(R.id.card_select_count);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		Card card = CardListManager.getInstance().getList().get(position);
+		Card card = list.get(position);
 		
 		/* 设置卡片名字 */
 		holder.nameText.setText(card.name);
@@ -91,6 +86,14 @@ public class CardAdapter extends BaseAdapter {
 		
 		/* 设置卡牌费用 */
 		holder.costText.setText(Integer.toString(card.cost));
+		
+		/* 判断是否有选择该卡牌 */
+		if(selectedMap.get(card.name) == null){
+			holder.countText.setVisibility(View.GONE);
+		} else {
+			holder.countText.setVisibility(View.VISIBLE);
+			holder.countText.setText(String.valueOf(selectedMap.get(card.name)));
+		}
 		
 		/* 
 		 * 设置仆从生命或设置武器耐久度
@@ -126,6 +129,7 @@ public class CardAdapter extends BaseAdapter {
 		public TextView atkText;
 		public TextView duraText;
 		public RelativeLayout cardContent;
+		public TextView countText;
 	}
 
 	public void addDataToList(List<Card> data){

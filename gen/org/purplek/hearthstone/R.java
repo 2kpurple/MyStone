@@ -22,36 +22,37 @@ public final class R {
     }
     public static final class color {
         public static final int actionbar_title_background=0x7f050008;
-        public static final int blue=0x7f050011;
+        public static final int blue=0x7f050012;
         public static final int card_item_background=0x7f050009;
         public static final int card_primary_text_color=0x7f05000a;
+        public static final int card_select_number_color=0x7f05000b;
         public static final int default_background_color=0x7f050007;
         public static final int dimgray=0x7f050002;
-        public static final int druid=0x7f050017;
+        public static final int druid=0x7f050018;
         public static final int gray=0x7f050001;
-        public static final int green=0x7f050012;
+        public static final int green=0x7f050013;
         public static final int hint_text_color=0x7f050006;
-        public static final int hunter=0x7f050014;
-        public static final int mage=0x7f050016;
-        public static final int note_default_color=0x7f05000c;
+        public static final int hunter=0x7f050015;
+        public static final int mage=0x7f050017;
+        public static final int note_default_color=0x7f05000d;
         /**  卡牌的颜色 
          */
-        public static final int orange=0x7f05000f;
-        public static final int paladin=0x7f050018;
-        public static final int pressed_state_color=0x7f05000b;
-        public static final int priest=0x7f050019;
+        public static final int orange=0x7f050010;
+        public static final int paladin=0x7f050019;
+        public static final int pressed_state_color=0x7f05000c;
+        public static final int priest=0x7f05001a;
         public static final int primary_text_color=0x7f050003;
-        public static final int purple=0x7f050010;
-        public static final int rogue=0x7f05001b;
-        public static final int shaman=0x7f050015;
+        public static final int purple=0x7f050011;
+        public static final int rogue=0x7f05001c;
+        public static final int shaman=0x7f050016;
         public static final int sliding_drawer_background_color=0x7f050005;
         public static final int sliding_drawer_text_color=0x7f050004;
-        public static final int stroke_gray=0x7f05000e;
-        public static final int transparent=0x7f05000d;
-        public static final int warlock=0x7f05001a;
+        public static final int stroke_gray=0x7f05000f;
+        public static final int transparent=0x7f05000e;
+        public static final int warlock=0x7f05001b;
         /**  职业的颜色 
          */
-        public static final int warrior=0x7f050013;
+        public static final int warrior=0x7f050014;
         public static final int white=0x7f050000;
     }
     public static final class dimen {
@@ -99,10 +100,10 @@ public final class R {
         public static final int note_shadow_activated=0x7f02001c;
     }
     public static final class id {
-        public static final int action_collection=0x7f0b0027;
-        public static final int action_new_collection=0x7f0b0026;
-        public static final int action_search=0x7f0b0028;
-        public static final int action_settings=0x7f0b0029;
+        public static final int action_collection=0x7f0b0029;
+        public static final int action_new_collection=0x7f0b0027;
+        public static final int action_search=0x7f0b002a;
+        public static final int action_settings=0x7f0b0028;
         public static final int card_atk=0x7f0b0023;
         public static final int card_cost=0x7f0b0022;
         public static final int card_durability=0x7f0b0025;
@@ -111,6 +112,7 @@ public final class R {
         public static final int card_info_content=0x7f0b001e;
         public static final int card_list=0x7f0b001b;
         public static final int card_name=0x7f0b001f;
+        public static final int card_select_count=0x7f0b0026;
         public static final int card_type=0x7f0b0020;
         public static final int class_select_druid=0x7f0b0001;
         public static final int class_select_hunter=0x7f0b0002;
@@ -146,18 +148,21 @@ public final class R {
         public static final int activity_card_detail=0x7f030000;
         public static final int activity_class_select=0x7f030001;
         public static final int activity_collection_detail=0x7f030002;
-        public static final int activity_main=0x7f030003;
-        public static final int activity_settings=0x7f030004;
-        public static final int filter_child_item=0x7f030005;
-        public static final int filter_item=0x7f030006;
-        public static final int fragment_detail=0x7f030007;
-        public static final int fragment_main=0x7f030008;
-        public static final int list_footview=0x7f030009;
-        public static final int listitem_card_info=0x7f03000a;
+        public static final int activity_collection_edit=0x7f030003;
+        public static final int activity_main=0x7f030004;
+        public static final int activity_settings=0x7f030005;
+        public static final int filter_child_item=0x7f030006;
+        public static final int filter_item=0x7f030007;
+        public static final int fragment_collection_edit=0x7f030008;
+        public static final int fragment_detail=0x7f030009;
+        public static final int fragment_main=0x7f03000a;
+        public static final int list_footview=0x7f03000b;
+        public static final int listitem_card_info=0x7f03000c;
     }
     public static final class menu {
         public static final int collection_detail=0x7f0a0000;
-        public static final int main=0x7f0a0001;
+        public static final int collection_edit=0x7f0a0001;
+        public static final int main=0x7f0a0002;
     }
     public static final class string {
         /**  卡牌详细信息 
@@ -209,6 +214,7 @@ public final class R {
         public static final int select_class=0x7f08000b;
         public static final int shaman=0x7f080016;
         public static final int title_activity_collection_detail=0x7f08002f;
+        public static final int title_activity_collection_edit=0x7f080030;
         public static final int totem=0x7f080025;
         public static final int type=0x7f080029;
         /**  类型 

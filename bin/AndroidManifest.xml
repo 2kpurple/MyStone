@@ -42,6 +42,10 @@
             android:name="org.purplek.hearthstone.Activity.CollectionDetailActivity"
             android:label="@string/title_activity_collection_detail" >
         </activity>
+        <activity
+            android:name="org.purplek.hearthstone.CollectionEditActivity"
+            android:label="@string/title_activity_collection_edit" >
+        </activity>
     </application>
 
 </manifest>

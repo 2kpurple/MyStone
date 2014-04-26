@@ -15,6 +15,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
             android:background="@drawable/class_druid_selector"
             android:text="@string/druid" /> 
 
@@ -32,6 +33,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
             android:background="@drawable/class_hunter_selector"
             android:text="@string/hunter" />
 
@@ -41,6 +43,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
             android:background="@drawable/class_mage_selector"
             android:text="@string/mage" />
 
@@ -57,6 +60,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
             android:background="@drawable/class_paladin_selector"
             android:text="@string/paladin" />
 
@@ -67,6 +71,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
             android:text="@string/priest" />
 
         <Button
@@ -76,6 +81,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
             android:text="@string/rogue" />
 
     </TableRow>
@@ -92,6 +98,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
             android:text="@string/shaman" />
 
         <Button
@@ -100,6 +107,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
             android:background="@drawable/class_warlock_selector"
             android:text="@string/warlock" />
 
@@ -110,6 +118,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
             android:text="@string/warrior" />
 
     </TableRow>
