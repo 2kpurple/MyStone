@@ -7,6 +7,7 @@ import org.purplek.hearthstone.CardListManager;
 import org.purplek.hearthstone.R;
 import org.purplek.hearthstone.model.Card;
 
+import android.R.integer;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -187,4 +188,9 @@ public class CardAdapter extends BaseAdapter {
 		
 		return buffer.toString();
 	}
+
+	public HashMap<String, Integer> getSelectedMap() {
+		return selectedMap;
+	}
+	
 }

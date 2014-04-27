@@ -1,4 +1,9 @@
-package org.purplek.hearthstone;
+package org.purplek.hearthstone.Activity;
+
+import org.purplek.hearthstone.R;
+import org.purplek.hearthstone.R.id;
+import org.purplek.hearthstone.R.layout;
+import org.purplek.hearthstone.R.menu;
 
 import android.app.Activity;
 import android.app.ActionBar;
@@ -20,6 +25,8 @@ public class CollectionEditActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_collection_edit);
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		Intent intent = getIntent();
 		clas = intent.getIntExtra("class", -1);

@@ -82,7 +82,7 @@ public class CardListManager {
 			boolean collectable = SharePrefUtil.getData(context,
 					SettingsFragment.PRE_COLLECTABLE, false);
 			List<Card> tempList = helper.queryCardInfo(rarity, cost,
-					race, clas, type, power, page, collectable);
+					race, clas, type, power, page, null, collectable);
 			if(tempList.size() < 20){		//返回的list的大小小于20，即数据已经被查询完毕
 				haveDataToUpdate = false;
 			}

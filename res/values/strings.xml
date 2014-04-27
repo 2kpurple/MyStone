@@ -14,6 +14,8 @@
     <string name="back_press_again_to_exit">再按下返回键退出</string>
     <string name="collection">收藏</string>
     <string name="select_class">选择职业</string>
+    <string name="cannot_select_more">卡牌组中同一张卡牌只能有两张</string>
+    <string name="no_collection">该职业下没有创建卡牌组</string>
 
     <!-- 设置页面相关字符串 -->
     <string name="filter_collectable">过滤不可收集卡牌</string>
@@ -61,5 +63,6 @@
     <string name="power">特性</string>
     <string name="title_activity_collection_detail">CollectionDetailActivity</string>
     <string name="title_activity_collection_edit">CollectionEditActivity</string>
+    <string name="title_activity_select_collection">SelectCollectionActivity</string>
 
 </resources>

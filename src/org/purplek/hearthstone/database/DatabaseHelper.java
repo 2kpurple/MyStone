@@ -45,19 +45,19 @@ public class DatabaseHelper {
     private static String TABLE_INFO = "card_info";
 
     //列名
-    private static String COLUMN_ID = "card_id";
-    private static String COLUMN_NAME = "card_name";
-    private static String COLUMN_CLASS = "card_class";
-    private static String COLUMN_ATTACK = "card_atk";
-    private static String COLUMN_TYPE = "card_type";
-    private static String COLUMN_HEALTH = "card_health";
-    private static String COLUMN_COST = "card_cost";
-    private static String COLUMN_RARITY = "card_rarity";
-    private static String COLUMN_RACE = "card_race";
-    private static String COLUMN_IMG = "card_img";
-    private static String COLUMN_FLAVOR_Text = "card_flavor_text";
-    private static String COLUMN_TEXT_IN_HAND = "card_text_in_hand";
-    private static String COLUMN_COLLECTIABLE = "card_collectiable";
+    public static String COLUMN_ID = "card_id";
+    public static String COLUMN_NAME = "card_name";
+    public static String COLUMN_CLASS = "card_class";
+    public static String COLUMN_ATTACK = "card_atk";
+    public static String COLUMN_TYPE = "card_type";
+    public static String COLUMN_HEALTH = "card_health";
+    public static String COLUMN_COST = "card_cost";
+    public static String COLUMN_RARITY = "card_rarity";
+    public static String COLUMN_RACE = "card_race";
+    public static String COLUMN_IMG = "card_img";
+    public static String COLUMN_FLAVOR_Text = "card_flavor_text";
+    public static String COLUMN_TEXT_IN_HAND = "card_text_in_hand";
+    public static String COLUMN_COLLECTIABLE = "card_collectiable";
 
     //卡牌能力
     private static String BATTLECRY = "battlecry";			//战吼
@@ -115,8 +115,9 @@ public class DatabaseHelper {
      * @param power 仆从能力
      * @return 返回查询结果cardinfo数组
      */
-    public ArrayList<Card> queryCardInfo(int rarity, int cost,
-                                                int race, int clas, int type, String power, int page, boolean collectable) {
+	public ArrayList<Card> queryCardInfo(int rarity, int cost, int race,
+			int clas, int type, String power, int page, String order,
+			boolean collectable) {
         StringBuilder argsBuilder = new StringBuilder();       //用于保存需要查找的列名
         StringBuilder selectBuilder = new StringBuilder();     //用于保存条件
         boolean flag = false;
@@ -178,38 +179,11 @@ public class DatabaseHelper {
 //        String limit = "0,1";
         String limit = ITEM_PRE_PAGE * page + "," + ITEM_PRE_PAGE;
         System.out.println(limit);
-        Cursor cursor = mDatabase.query(TABLE_INFO,null,select,selectArgs,null,null,null,limit);
+        Cursor cursor = mDatabase.query(TABLE_INFO,null,select,selectArgs,null,null,order,limit);
         ArrayList<Card> list = new ArrayList<Card>();
         if (cursor != null && cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                Card card = new Card();
-                card.id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
-                card.name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-                card.clas = cursor.getInt(cursor.getColumnIndex(COLUMN_CLASS));
-                card.rarity = cursor.getInt(cursor.getColumnIndex(COLUMN_RARITY));
-                card.attack = cursor.getInt(cursor.getColumnIndex(COLUMN_ATTACK));
-                card.health = cursor.getInt(cursor.getColumnIndex(COLUMN_HEALTH));
-                card.cost = cursor.getInt(cursor.getColumnIndex(COLUMN_COST));
-                card.race = cursor.getInt(cursor.getColumnIndex(COLUMN_RACE));
-                card.type = cursor.getInt(cursor.getColumnIndex(COLUMN_TYPE));
-                card.img = cursor.getString(cursor.getColumnIndex(COLUMN_IMG));
-                card.flavorText = cursor.getString(cursor.getColumnIndex(COLUMN_FLAVOR_Text));
-                card.textInHand = cursor.getString(cursor.getColumnIndex(COLUMN_TEXT_IN_HAND));
-                card.collectable = cursor.getInt(cursor.getColumnIndex(COLUMN_COLLECTIABLE));
-                card.battlecry = cursor.getInt(cursor.getColumnIndex(BATTLECRY));
-                card.charge = cursor.getInt(cursor.getColumnIndex(CHARGE));
-                card.combo = cursor.getInt(cursor.getColumnIndex(COMBO));
-                card.deathrattle = cursor.getInt(cursor.getColumnIndex(DEATHRATTLE));
-                card.divineShield = cursor.getInt(cursor.getColumnIndex(DIVINE_SHIELD));
-                card.enrage = cursor.getInt(cursor.getColumnIndex(ENRAGE));
-                card.freeze = cursor.getInt(cursor.getColumnIndex(FREEZE));
-                card.secret = cursor.getInt(cursor.getColumnIndex(SECRET));
-                card.silence = cursor.getInt(cursor.getColumnIndex(SILENCE));
-                card.stealth = cursor.getInt(cursor.getColumnIndex(STEALTH));
-                card.taunt = cursor.getInt(cursor.getColumnIndex(TAUNT));
-                card.windfury = cursor.getInt(cursor.getColumnIndex(WINDFURY));
-
-                list.add(card);
+                list.add(getCard(cursor));
                 cursor.moveToNext();
             }
             cursor.close();
@@ -217,6 +191,24 @@ public class DatabaseHelper {
         }
 
         return list;
+    }
+    
+    public ArrayList<Card> queryCardInfoForCollection(int clas, int page, String order){
+    	ArrayList<Card> list = new ArrayList<Card>();
+    	String selection = COLUMN_CLASS + " = ?";
+    	String limit = ITEM_PRE_PAGE * page + "," + ITEM_PRE_PAGE;
+		Cursor cursor = mDatabase
+				.query(TABLE_INFO, null, selection,
+						new String[] { String.valueOf(clas) }, null, null,
+						order, limit);
+		if (cursor != null && cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                list.add(getCard(cursor));
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+    	return list;
     }
     
     /**
@@ -236,36 +228,10 @@ public class DatabaseHelper {
 				new String[] { "%" + query + "%" }, null, null, null);
 		if (cursor != null && cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-            	Card card = new Card();
-                card.id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
-                card.name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-                card.clas = cursor.getInt(cursor.getColumnIndex(COLUMN_CLASS));
-                card.rarity = cursor.getInt(cursor.getColumnIndex(COLUMN_RARITY));
-                card.attack = cursor.getInt(cursor.getColumnIndex(COLUMN_ATTACK));
-                card.health = cursor.getInt(cursor.getColumnIndex(COLUMN_HEALTH));
-                card.cost = cursor.getInt(cursor.getColumnIndex(COLUMN_COST));
-                card.race = cursor.getInt(cursor.getColumnIndex(COLUMN_RACE));
-                card.type = cursor.getInt(cursor.getColumnIndex(COLUMN_TYPE));
-                card.img = cursor.getString(cursor.getColumnIndex(COLUMN_IMG));
-                card.flavorText = cursor.getString(cursor.getColumnIndex(COLUMN_FLAVOR_Text));
-                card.textInHand = cursor.getString(cursor.getColumnIndex(COLUMN_TEXT_IN_HAND));
-                card.collectable = cursor.getInt(cursor.getColumnIndex(COLUMN_COLLECTIABLE));
-                card.battlecry = cursor.getInt(cursor.getColumnIndex(BATTLECRY));
-                card.charge = cursor.getInt(cursor.getColumnIndex(CHARGE));
-                card.combo = cursor.getInt(cursor.getColumnIndex(COMBO));
-                card.deathrattle = cursor.getInt(cursor.getColumnIndex(DEATHRATTLE));
-                card.divineShield = cursor.getInt(cursor.getColumnIndex(DIVINE_SHIELD));
-                card.enrage = cursor.getInt(cursor.getColumnIndex(ENRAGE));
-                card.freeze = cursor.getInt(cursor.getColumnIndex(FREEZE));
-                card.secret = cursor.getInt(cursor.getColumnIndex(SECRET));
-                card.silence = cursor.getInt(cursor.getColumnIndex(SILENCE));
-                card.stealth = cursor.getInt(cursor.getColumnIndex(STEALTH));
-                card.taunt = cursor.getInt(cursor.getColumnIndex(TAUNT));
-                card.windfury = cursor.getInt(cursor.getColumnIndex(WINDFURY));
-                
-                list.add(card);
+                list.add(getCard(cursor));
                 cursor.moveToNext();
             }
+            cursor.close();
 		}
     	return list;
     }
@@ -321,7 +287,7 @@ public class DatabaseHelper {
 		
 		List<Collection> list = new ArrayList<Collection>();
 		
-		Cursor cursor = mDatabase.query(TABLE_CARDS, null, selection,
+		Cursor cursor = mDatabase.query(TABLE_COLL, null, selection,
 				new String[] { String.valueOf(clas) }, null, null, null);
 		if (cursor != null && cursor.moveToFirst()) {
 			while (!cursor.isAfterLast()) {
@@ -332,8 +298,8 @@ public class DatabaseHelper {
 				list.add(collection);
 				cursor.moveToNext();
 			}
+			cursor.close();
 		}
-		
 		return list;
 	}
 	
@@ -360,37 +326,41 @@ public class DatabaseHelper {
 		for(int i = 0 ; i < cardId.length ; i++){
 			cardCursor = mDatabase.query(TABLE_CARDS, null, COLUMN_ID + " = ?", new String[]{cardId[i]}, null, null, null);
 			if(cardCursor != null && cardCursor.moveToFirst()){
-            	Card card = new Card();
-                card.id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
-                card.name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-                card.clas = cursor.getInt(cursor.getColumnIndex(COLUMN_CLASS));
-                card.rarity = cursor.getInt(cursor.getColumnIndex(COLUMN_RARITY));
-                card.attack = cursor.getInt(cursor.getColumnIndex(COLUMN_ATTACK));
-                card.health = cursor.getInt(cursor.getColumnIndex(COLUMN_HEALTH));
-                card.cost = cursor.getInt(cursor.getColumnIndex(COLUMN_COST));
-                card.race = cursor.getInt(cursor.getColumnIndex(COLUMN_RACE));
-                card.type = cursor.getInt(cursor.getColumnIndex(COLUMN_TYPE));
-                card.img = cursor.getString(cursor.getColumnIndex(COLUMN_IMG));
-                card.flavorText = cursor.getString(cursor.getColumnIndex(COLUMN_FLAVOR_Text));
-                card.textInHand = cursor.getString(cursor.getColumnIndex(COLUMN_TEXT_IN_HAND));
-                card.collectable = cursor.getInt(cursor.getColumnIndex(COLUMN_COLLECTIABLE));
-                card.battlecry = cursor.getInt(cursor.getColumnIndex(BATTLECRY));
-                card.charge = cursor.getInt(cursor.getColumnIndex(CHARGE));
-                card.combo = cursor.getInt(cursor.getColumnIndex(COMBO));
-                card.deathrattle = cursor.getInt(cursor.getColumnIndex(DEATHRATTLE));
-                card.divineShield = cursor.getInt(cursor.getColumnIndex(DIVINE_SHIELD));
-                card.enrage = cursor.getInt(cursor.getColumnIndex(ENRAGE));
-                card.freeze = cursor.getInt(cursor.getColumnIndex(FREEZE));
-                card.secret = cursor.getInt(cursor.getColumnIndex(SECRET));
-                card.silence = cursor.getInt(cursor.getColumnIndex(SILENCE));
-                card.stealth = cursor.getInt(cursor.getColumnIndex(STEALTH));
-                card.taunt = cursor.getInt(cursor.getColumnIndex(TAUNT));
-                card.windfury = cursor.getInt(cursor.getColumnIndex(WINDFURY));
-                list.add(card);
+                list.add(getCard(cardCursor));
 			}
 		}
 		
 		return list;
+	}
+	
+	private Card getCard(Cursor cursor){
+		Card card = new Card();
+        card.id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
+        card.name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
+        card.clas = cursor.getInt(cursor.getColumnIndex(COLUMN_CLASS));
+        card.rarity = cursor.getInt(cursor.getColumnIndex(COLUMN_RARITY));
+        card.attack = cursor.getInt(cursor.getColumnIndex(COLUMN_ATTACK));
+        card.health = cursor.getInt(cursor.getColumnIndex(COLUMN_HEALTH));
+        card.cost = cursor.getInt(cursor.getColumnIndex(COLUMN_COST));
+        card.race = cursor.getInt(cursor.getColumnIndex(COLUMN_RACE));
+        card.type = cursor.getInt(cursor.getColumnIndex(COLUMN_TYPE));
+        card.img = cursor.getString(cursor.getColumnIndex(COLUMN_IMG));
+        card.flavorText = cursor.getString(cursor.getColumnIndex(COLUMN_FLAVOR_Text));
+        card.textInHand = cursor.getString(cursor.getColumnIndex(COLUMN_TEXT_IN_HAND));
+        card.collectable = cursor.getInt(cursor.getColumnIndex(COLUMN_COLLECTIABLE));
+        card.battlecry = cursor.getInt(cursor.getColumnIndex(BATTLECRY));
+        card.charge = cursor.getInt(cursor.getColumnIndex(CHARGE));
+        card.combo = cursor.getInt(cursor.getColumnIndex(COMBO));
+        card.deathrattle = cursor.getInt(cursor.getColumnIndex(DEATHRATTLE));
+        card.divineShield = cursor.getInt(cursor.getColumnIndex(DIVINE_SHIELD));
+        card.enrage = cursor.getInt(cursor.getColumnIndex(ENRAGE));
+        card.freeze = cursor.getInt(cursor.getColumnIndex(FREEZE));
+        card.secret = cursor.getInt(cursor.getColumnIndex(SECRET));
+        card.silence = cursor.getInt(cursor.getColumnIndex(SILENCE));
+        card.stealth = cursor.getInt(cursor.getColumnIndex(STEALTH));
+        card.taunt = cursor.getInt(cursor.getColumnIndex(TAUNT));
+        card.windfury = cursor.getInt(cursor.getColumnIndex(WINDFURY));
+        return card;
 	}
 
     private void copyAssetsToPhone(){

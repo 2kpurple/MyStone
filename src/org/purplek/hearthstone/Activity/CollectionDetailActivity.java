@@ -1,22 +1,12 @@
 package org.purplek.hearthstone.Activity;
 
-import org.purplek.hearthstone.CollectionEditActivity;
 import org.purplek.hearthstone.R;
-import org.purplek.hearthstone.R.id;
-import org.purplek.hearthstone.R.layout;
-import org.purplek.hearthstone.R.menu;
 
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
 
 public class CollectionDetailActivity extends Activity {
 	
@@ -27,12 +17,6 @@ public class CollectionDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_collection_detail);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		
-		Intent intent = getIntent();
-		clas = intent.getIntExtra("class", -1);
-		
-		String[] classArray = getResources().getStringArray(R.array.class_array);
-		setTitle(classArray[clas + 1]);
 	}
 
 	@Override
@@ -48,11 +32,8 @@ public class CollectionDetailActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_new_collection) {
-			Intent intent = new Intent(this, CollectionEditActivity.class);
-			intent.putExtra("class", clas);
-			startActivity(intent);
-			return true;
+		if (id == R.id.action_save_collection) {
+			// 保存卡牌组
 		}
 		return super.onOptionsItemSelected(item);
 	}
