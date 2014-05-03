@@ -36,7 +36,7 @@ public class CardSelectFragment extends Fragment implements OnScrollListener, On
 	private ListView cardListView;
 	private int page = 0;
 	private int clas = 0;
-	private boolean haveDataToUpdate = false;
+	private boolean haveDataToUpdate = true;
 	private int lastItem = 0;
 	
 	private final static int ADD_DATA = 101;
@@ -47,9 +47,14 @@ public class CardSelectFragment extends Fragment implements OnScrollListener, On
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		list = new ArrayList<Card>();
+		
+		Bundle bundle = getArguments();
+		if(bundle != null){
+			clas = bundle.getInt("class");
+		}
 		cardAdapter = new CardAdapter(getActivity(), list);
 	}
-
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -67,7 +72,7 @@ public class CardSelectFragment extends Fragment implements OnScrollListener, On
 		final DatabaseHelper helper = DatabaseHelper.getInstance(getActivity());
 		if(haveDataToUpdate){
 			ArrayList<Card> tempList = helper.queryCardInfoForCollection(clas, page, DatabaseHelper.COLUMN_COST);
-			if(tempList.size() < 20){
+			if(tempList.size() < 19){
 				handler.sendEmptyMessage(QUERY_FINISH);
 			}
 			list.addAll(tempList);
@@ -85,7 +90,7 @@ public class CardSelectFragment extends Fragment implements OnScrollListener, On
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 		// TODO Auto-generated method stub
 		if(scrollState == OnScrollListener.SCROLL_STATE_IDLE
-				&& lastItem == list.size() + 1){
+				&& lastItem > list.size() - 3){
 			//开启新线程进行查询
 			new Thread(new Runnable() {
 				
@@ -117,6 +122,7 @@ public class CardSelectFragment extends Fragment implements OnScrollListener, On
 						Toast.LENGTH_SHORT).show();
 			}
 		}
+		cardAdapter.notifyDataSetChanged();
 	}
 	
 	private Handler handler = new Handler(){

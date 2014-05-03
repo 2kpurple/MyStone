@@ -195,7 +195,7 @@ public class DatabaseHelper {
     
     public ArrayList<Card> queryCardInfoForCollection(int clas, int page, String order){
     	ArrayList<Card> list = new ArrayList<Card>();
-    	String selection = COLUMN_CLASS + " = ?";
+    	String selection = COLUMN_CLASS + " = ? and " + COLUMN_COLLECTIABLE + " = 1";
     	String limit = ITEM_PRE_PAGE * page + "," + ITEM_PRE_PAGE;
 		Cursor cursor = mDatabase
 				.query(TABLE_INFO, null, selection,
@@ -203,7 +203,10 @@ public class DatabaseHelper {
 						order, limit);
 		if (cursor != null && cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                list.add(getCard(cursor));
+            	// 将不是英雄的牌加入list
+            	if(cursor.getInt(cursor.getColumnIndex(COLUMN_TYPE)) != 0){
+            		list.add(getCard(cursor));
+            	}
                 cursor.moveToNext();
             }
             cursor.close();

@@ -1,17 +1,19 @@
 package org.purplek.hearthstone.Activity;
 
 import org.purplek.hearthstone.R;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
+/**
+ * 查看牌组
+ * @author PurpleK
+ *
+ */
 public class CollectionDetailActivity extends Activity {
 	
-	private int clas;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
