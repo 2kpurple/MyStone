@@ -3,10 +3,10 @@
     tools:context="org.purplek.hearthstone.CollectionDetailActivity" >
 
     <item
-        android:id="@+id/action_save_collection"
+        android:id="@+id/action_edit_collection"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:icon="@drawable/ic_action_new"
-        android:title="@string/action_settings"/>
+        android:icon="@drawable/ic_action_edit"
+        android:title="@string/edit"/>
 
 </menu>

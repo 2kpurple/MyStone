@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.purplek.hearthstone.CardListManager;
 import org.purplek.hearthstone.R;
+import org.purplek.hearthstone.Activity.CollectionEditActivity;
 import org.purplek.hearthstone.adapter.CardAdapter;
 import org.purplek.hearthstone.database.DatabaseHelper;
 import org.purplek.hearthstone.model.Card;
@@ -42,6 +43,8 @@ public class CardSelectFragment extends Fragment implements OnScrollListener, On
 	
 	private final static int ADD_DATA = 101;
 	private final static int QUERY_FINISH = 102;
+	
+	private CollectionEditActivity activity;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class CardSelectFragment extends Fragment implements OnScrollListener, On
 			clas = bundle.getInt("class");
 		}
 		cardAdapter = new CardAdapter(getActivity(), list);
+		activity = (CollectionEditActivity) getActivity();
 	}
 	
 	@Override
@@ -92,7 +96,7 @@ public class CardSelectFragment extends Fragment implements OnScrollListener, On
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 		// TODO Auto-generated method stub
 		if(scrollState == OnScrollListener.SCROLL_STATE_IDLE
-				&& lastItem > list.size() - 3){
+				&& lastItem > list.size() - 5){
 			//开启新线程进行查询
 			new Thread(new Runnable() {
 				
@@ -107,27 +111,34 @@ public class CardSelectFragment extends Fragment implements OnScrollListener, On
 		}
 	}
 	
+	/**
+	 * 点击选择卡牌
+	 */
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
+		if(activity.count == 30){
+			showToast(R.string.cannot_select_more_card);
+			return;
+		}
 		Map<String, Integer> tempMap = cardAdapter.getSelectedMap();
 		Card tempCard = list.get(position);
 		Integer count = tempMap.get(tempCard.name);
 		if(count == null){
 			tempMap.put(tempCard.name, 1);
+			activity.count++;
+			activity.cards.add(tempCard);
 		} else {
 			if(count == 1){
 				if(tempCard.rarity == 4){
-					Toast.makeText(getActivity(),
-							getString(R.string.cannot_select_more_legend),
-							Toast.LENGTH_SHORT).show();
+					showToast(R.string.cannot_select_more_legend);
 				} else {
 					tempMap.put(tempCard.name, 2);
+					activity.count++;
+					activity.cards.add(tempCard);
 				}
 			} else {
-				Toast.makeText(getActivity(),
-						getString(R.string.cannot_select_more),
-						Toast.LENGTH_SHORT).show();
+				showToast(R.string.cannot_select_more);
 			} 
 		}
 		cardAdapter.notifyDataSetChanged();
@@ -140,6 +151,9 @@ public class CardSelectFragment extends Fragment implements OnScrollListener, On
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
 		// TODO Auto-generated method stub
+		if(activity.count == 0){
+			return true;
+		}
 		Map<String, Integer> tempMap = cardAdapter.getSelectedMap();
 		Card tempCard = list.get(position);
 		Integer count = tempMap.get(tempCard.name);
@@ -148,9 +162,13 @@ public class CardSelectFragment extends Fragment implements OnScrollListener, On
 		} else {
 			if(count == 2){
 				tempMap.put(tempCard.name, 1);
+				activity.count--;
+				activity.cards.remove(tempCard);
 			}
 			if(count == 1){
 				tempMap.remove(tempCard.name);
+				activity.count--;
+				activity.cards.remove(tempCard.id);
 			}
 		}
 		cardAdapter.notifyDataSetChanged();
@@ -173,4 +191,9 @@ public class CardSelectFragment extends Fragment implements OnScrollListener, On
 		}
 		
 	};
+	
+	private void showToast(int string) {
+		Toast.makeText(getActivity(), getString(string), Toast.LENGTH_SHORT)
+				.show();
+	}
 }

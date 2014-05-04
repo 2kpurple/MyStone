@@ -96,7 +96,7 @@ public class DatabaseHelper {
         if(!file.exists() || version != DATABASE_VERSION){
             copyAssetsToPhone();
         }
-        return SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
+        return SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
     }
 
     public static synchronized DatabaseHelper getInstance(Context context){
@@ -244,12 +244,12 @@ public class DatabaseHelper {
 	 * @param context
 	 * @param coll
 	 */
-	public void addCollection(Collection coll){
+	public void insertCollection(Collection coll){
 		
 		//生成所选卡牌字符串s
 		StringBuffer buffer = new StringBuffer();
 		for(int i = 0; i < coll.cards.size() ; i++){
-			buffer.append(coll.cards.get(i) + ",");
+			buffer.append(coll.cards.get(i).id + ",");
 		}
 		buffer.deleteCharAt(buffer.length() - 1);
 		
@@ -266,18 +266,18 @@ public class DatabaseHelper {
 //		Cursor cursor = mDatabase.rawQuery("select last_insert_rowid()",null);
 		//开启事务
 		try {
-			mDatabase.beginTransaction();
+//			mDatabase.beginTransaction();
 			// 插入到collection
 			int id = (int) mDatabase.insert(TABLE_COLL, null, cvColl);
 			cvCard.put(COL_CARDSID, id);
 			mDatabase.insert(TABLE_CARDS, null, cvCard);
 			// 插入到cards
-			mDatabase.setTransactionSuccessful();
+//			mDatabase.setTransactionSuccessful();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		} finally {
-			mDatabase.endTransaction();
+//			mDatabase.endTransaction();
 		}
 	}
 	

@@ -10,6 +10,6 @@ import java.util.List;
 public class Collection {
 	public int id;
 	public int clas;
-	public List<Integer> cards;
+	public List<Card> cards;
 	public String name;
 }
