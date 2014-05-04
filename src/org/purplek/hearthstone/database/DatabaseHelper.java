@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -248,8 +249,12 @@ public class DatabaseHelper {
 		
 		//生成所选卡牌字符串s
 		StringBuffer buffer = new StringBuffer();
-		for(int i = 0; i < coll.cards.size() ; i++){
-			buffer.append(coll.cards.get(i).id + ",");
+//		for(int i = 0; i < coll.cards.size() ; i++){
+//			buffer.append(coll.cards.get(i).id + ",");
+//		}
+		Iterator<Card> it = coll.cards.iterator();
+		while (it.hasNext()){
+			buffer.append(it.next().id + ",");
 		}
 		buffer.deleteCharAt(buffer.length() - 1);
 		
@@ -260,25 +265,21 @@ public class DatabaseHelper {
 		
 		//插入数据到cards表
 		ContentValues cvCard = new ContentValues();
-		cvCard.put(COL_CARDSID, buffer.toString());
+		cvCard.put(COL_CARDS, buffer.toString());
 		
 		//获取最后一次添加的collid
 //		Cursor cursor = mDatabase.rawQuery("select last_insert_rowid()",null);
+		
 		//开启事务
-		try {
-//			mDatabase.beginTransaction();
-			// 插入到collection
-			int id = (int) mDatabase.insert(TABLE_COLL, null, cvColl);
-			cvCard.put(COL_CARDSID, id);
-			mDatabase.insert(TABLE_CARDS, null, cvCard);
-			// 插入到cards
-//			mDatabase.setTransactionSuccessful();
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		} finally {
-//			mDatabase.endTransaction();
+		mDatabase.beginTransaction();
+		// 插入到collection
+		int id = (int) mDatabase.insert(TABLE_COLL, null, cvColl);
+		cvCard.put(COL_COLLID, id);
+		int result = (int) mDatabase.insert(TABLE_CARDS, null, cvCard);
+		if(id != -1 && result != -1){
+			mDatabase.setTransactionSuccessful();
 		}
+		mDatabase.endTransaction();
 	}
 	
 	/**

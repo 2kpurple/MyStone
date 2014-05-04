@@ -43,9 +43,9 @@ public class UserDatabase {
 		
 		//生成所选卡牌字符串s
 		StringBuffer buffer = new StringBuffer();
-		for(int i = 0; i < coll.cards.size() ; i++){
-			buffer.append(coll.cards.get(i));
-		}
+//		for(int i = 0; i < coll.cards.size() ; i++){
+//			buffer.append(coll.cards.get(i));
+//		}
 		buffer.deleteCharAt(buffer.length() - 1);
 		
 		//插入数据到collection表

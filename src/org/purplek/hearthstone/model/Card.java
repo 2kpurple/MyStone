@@ -5,7 +5,7 @@ package org.purplek.hearthstone.model;
  * CardInfo保存卡片的基本信息
  */
 
-public class Card{
+public class Card implements Comparable<Card>{
     public int id;
     public String name;
     public int clas;
@@ -31,5 +31,26 @@ public class Card{
     public int stealth;
     public int taunt;
     public int windfury;
+    
+	@Override
+	public int compareTo(Card another) {
+		// TODO Auto-generated method stub
+		if(this.cost > another.cost){
+			return 1;
+		} else if(this.cost < another.cost) {
+			return -1;
+		} else {
+			// 如果cost相等则判断id大小
+			if(this.id > another.id){
+				return 1;
+			} else if(this.id < another.id){
+				return -1;
+			} else {
+				return 0;
+			}
+		}
+	}
+    
+    
 
 }

@@ -10,6 +10,7 @@ import org.purplek.hearthstone.Activity.CollectionEditActivity;
 import org.purplek.hearthstone.adapter.CardAdapter;
 import org.purplek.hearthstone.database.DatabaseHelper;
 import org.purplek.hearthstone.model.Card;
+import org.purplek.heartstone.utils.PhoneUtil;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -118,7 +119,7 @@ public class CardSelectFragment extends Fragment implements OnScrollListener, On
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
 		if(activity.count == 30){
-			showToast(R.string.cannot_select_more_card);
+			PhoneUtil.showToast(getActivity(), R.string.cannot_select_more_card);
 			return;
 		}
 		Map<String, Integer> tempMap = cardAdapter.getSelectedMap();
@@ -131,14 +132,14 @@ public class CardSelectFragment extends Fragment implements OnScrollListener, On
 		} else {
 			if(count == 1){
 				if(tempCard.rarity == 4){
-					showToast(R.string.cannot_select_more_legend);
+					PhoneUtil.showToast(getActivity(), R.string.cannot_select_more_legend);
 				} else {
 					tempMap.put(tempCard.name, 2);
 					activity.count++;
 					activity.cards.add(tempCard);
 				}
 			} else {
-				showToast(R.string.cannot_select_more);
+				PhoneUtil.showToast(getActivity(), R.string.cannot_select_more);
 			} 
 		}
 		cardAdapter.notifyDataSetChanged();
@@ -191,9 +192,4 @@ public class CardSelectFragment extends Fragment implements OnScrollListener, On
 		}
 		
 	};
-	
-	private void showToast(int string) {
-		Toast.makeText(getActivity(), getString(string), Toast.LENGTH_SHORT)
-				.show();
-	}
 }
