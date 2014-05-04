@@ -15,6 +15,7 @@
     <string name="collection">收藏</string>
     <string name="select_class">选择职业</string>
     <string name="cannot_select_more">卡牌组中同一张卡牌只能有两张</string>
+    <string name="cannot_select_more_legend">卡牌组中同一张传说卡牌只能有一张</string>
     <string name="no_collection">该职业下没有创建卡牌组</string>
     <string name="new_collection">添加新卡组</string>
 

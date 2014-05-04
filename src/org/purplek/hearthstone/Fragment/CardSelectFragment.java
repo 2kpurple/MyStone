@@ -22,6 +22,7 @@ import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
 /**
@@ -29,7 +30,7 @@ import android.widget.ListView;
  * @author PurpleK
  *
  */
-public class CardSelectFragment extends Fragment implements OnScrollListener, OnItemClickListener {
+public class CardSelectFragment extends Fragment implements OnScrollListener, OnItemClickListener, OnItemLongClickListener {
 	
 	private List<Card> list;
 	private CardAdapter cardAdapter;
@@ -65,6 +66,7 @@ public class CardSelectFragment extends Fragment implements OnScrollListener, On
 		cardListView.setAdapter(cardAdapter);
 		cardListView.setOnScrollListener(this);
 		cardListView.setOnItemClickListener(this);
+		cardListView.setOnItemLongClickListener(this);
 		return view;
 	}
 	
@@ -111,18 +113,48 @@ public class CardSelectFragment extends Fragment implements OnScrollListener, On
 		Map<String, Integer> tempMap = cardAdapter.getSelectedMap();
 		Card tempCard = list.get(position);
 		Integer count = tempMap.get(tempCard.name);
-		if(tempMap.get(tempCard.name) == null){
+		if(count == null){
 			tempMap.put(tempCard.name, 1);
 		} else {
 			if(count == 1){
-				tempMap.put(tempCard.name, 2);
+				if(tempCard.rarity == 4){
+					Toast.makeText(getActivity(),
+							getString(R.string.cannot_select_more_legend),
+							Toast.LENGTH_SHORT).show();
+				} else {
+					tempMap.put(tempCard.name, 2);
+				}
 			} else {
 				Toast.makeText(getActivity(),
 						getString(R.string.cannot_select_more),
 						Toast.LENGTH_SHORT).show();
+			} 
+		}
+		cardAdapter.notifyDataSetChanged();
+	}
+	
+	/**
+	 * 长按取消选择
+	 */
+	@Override
+	public boolean onItemLongClick(AdapterView<?> parent, View view,
+			int position, long id) {
+		// TODO Auto-generated method stub
+		Map<String, Integer> tempMap = cardAdapter.getSelectedMap();
+		Card tempCard = list.get(position);
+		Integer count = tempMap.get(tempCard.name);
+		if(count == null){
+			return true;
+		} else {
+			if(count == 2){
+				tempMap.put(tempCard.name, 1);
+			}
+			if(count == 1){
+				tempMap.remove(tempCard.name);
 			}
 		}
 		cardAdapter.notifyDataSetChanged();
+		return true;
 	}
 	
 	private Handler handler = new Handler(){
