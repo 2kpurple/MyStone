@@ -32,8 +32,9 @@ import android.widget.ListView;
  * @author PurpleK
  *
  */
-public class CardSelectFragment extends Fragment implements OnScrollListener, OnItemClickListener, OnItemLongClickListener {
-	
+public class CardSelectFragment extends Fragment implements OnScrollListener,
+		OnItemClickListener, OnItemLongClickListener {
+
 	private List<Card> list;
 	private CardAdapter cardAdapter;
 	private ListView cardListView;

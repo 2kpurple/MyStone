@@ -1,6 +1,6 @@
 package org.purplek.hearthstone.model;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * 用于保存收藏卡组的model类
@@ -10,6 +10,6 @@ import java.util.Set;
 public class Collection {
 	public int id;
 	public int clas;
-	public Set<Card> cards;
+	public List<Card> cards;
 	public String name;
 }

@@ -12,6 +12,7 @@ import org.purplek.hearthstone.Fragment.DisplayFragment;
 import org.purplek.hearthstone.database.DatabaseHelper;
 import org.purplek.hearthstone.model.Card;
 import org.purplek.hearthstone.model.Collection;
+import org.purplek.hearthstone.support.PriorityList;
 import org.purplek.heartstone.utils.PhoneUtil;
 
 import android.app.Activity;
@@ -34,7 +35,7 @@ public class CollectionEditActivity extends FragmentActivity {
 	private ViewPager viewPager;
 	private List<Fragment> list;
 	
-	public Set<Card> cards;	// 保存卡牌的list
+	public List<Card> cards;	// 保存卡牌的list
 	public int count = 0;   //	保存选择的卡牌数
 	
 
@@ -48,7 +49,7 @@ public class CollectionEditActivity extends FragmentActivity {
 		Intent intent = getIntent();
 		clas = intent.getIntExtra("class", -1);
 		
-		cards = new TreeSet<Card>();
+		cards = new PriorityList<Card>();
 		
 		// 如果是编辑 传入编辑参数 如果是新建，则不需要
 		initViewPager();
