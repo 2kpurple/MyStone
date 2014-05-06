@@ -9,7 +9,7 @@ import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends BaseActivity {
 	
 	public static final int RES_PREF_CHANGED = 201;
 

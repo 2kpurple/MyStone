@@ -1,7 +1,5 @@
 package org.purplek.hearthstone.Activity;
 
-import java.net.ContentHandler;
-import java.sql.Types;
 import java.util.List;
 
 import org.purplek.hearthstone.CardListManager;
@@ -9,18 +7,13 @@ import org.purplek.hearthstone.R;
 import org.purplek.hearthstone.adapter.CardDetailAdapter;
 import org.purplek.hearthstone.model.Card;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
 
-public class CardDetialActivity extends FragmentActivity implements
+public class CardDetialActivity extends BaseActivity implements
 		OnPageChangeListener {
 
 	private ViewPager viewPager;

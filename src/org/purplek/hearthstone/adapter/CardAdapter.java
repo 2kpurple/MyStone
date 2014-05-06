@@ -2,12 +2,9 @@ package org.purplek.hearthstone.adapter;
 
 import java.util.HashMap;
 import java.util.List;
-
 import org.purplek.hearthstone.CardListManager;
 import org.purplek.hearthstone.R;
 import org.purplek.hearthstone.model.Card;
-
-import android.R.integer;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +15,10 @@ import android.widget.TextView;
 
 public class CardAdapter extends BaseAdapter {
 	
-	private Context context;
-	private LayoutInflater inflater;
-	private int currentItem;
+	protected Context context;
+	protected LayoutInflater inflater;
 	private HashMap<String, Integer> selectedMap;
-	private List<Card> list;
+	protected List<Card> list;
 	
 	public CardAdapter(Context context, List<Card> list){
 		this.context = context;
@@ -191,6 +187,14 @@ public class CardAdapter extends BaseAdapter {
 
 	public HashMap<String, Integer> getSelectedMap() {
 		return selectedMap;
+	}
+	
+	public List<Card> getList(){
+		return list;
+	}
+	
+	public void setList(List<Card> list){
+		this.list = list;
 	}
 	
 }

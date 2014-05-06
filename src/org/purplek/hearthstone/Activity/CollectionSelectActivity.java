@@ -23,7 +23,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class CollectionSelectActivity extends Activity {
+public class CollectionSelectActivity extends BaseActivity {
 	
 	private int clas;
 	private List<Collection> list;

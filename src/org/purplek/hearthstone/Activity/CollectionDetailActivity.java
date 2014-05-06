@@ -12,7 +12,7 @@ import android.view.MenuItem;
  * @author PurpleK
  *
  */
-public class CollectionDetailActivity extends Activity {
+public class CollectionDetailActivity extends BaseActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

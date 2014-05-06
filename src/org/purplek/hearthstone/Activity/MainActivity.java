@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends FragmentActivity implements
+public class MainActivity extends BaseActivity implements
 		SearchView.OnQueryTextListener {
 	
 	public final static int REQ_SETTINGS = 101;

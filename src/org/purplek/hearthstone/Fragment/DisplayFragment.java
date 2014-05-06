@@ -5,20 +5,12 @@ import org.purplek.hearthstone.R;
 import org.purplek.hearthstone.Activity.CardDetialActivity;
 import org.purplek.hearthstone.Activity.MainActivity;
 import org.purplek.hearthstone.adapter.CardAdapter;
-import org.purplek.hearthstone.database.DatabaseHelper;
-import org.purplek.hearthstone.model.Card;
-import org.purplek.heartstone.utils.SharePrefUtil;
-
 import android.support.v4.app.Fragment;
-import android.R.integer;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +19,6 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-
-import java.util.List;
 
 /**
  * Created by purplekfung on 14-1-2.¸
@@ -136,6 +126,7 @@ public class DisplayFragment extends Fragment implements OnScrollListener, OnIte
 			switch (msg.what) {
 			case ADD_DATA:
 				cardAdapter.notifyDataSetChanged();
+				cardAdapter.setList(CardListManager.getInstance().getList());
 				break;
 			case NEW_QUERY:
 				cardListView.post(new Runnable() {
@@ -158,6 +149,7 @@ public class DisplayFragment extends Fragment implements OnScrollListener, OnIte
 					public void run() {
 						// TODO Auto-generated method stub
 						cardListView.setSelection(0);
+						System.out.println("testtesttest");
 					}
 				});
 				footerView.setVisibility(View.VISIBLE);

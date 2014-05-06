@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.view.MenuItem;
 import android.view.View;
 
-public class ClassSelectActivity extends Activity {
+public class ClassSelectActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

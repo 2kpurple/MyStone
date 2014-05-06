@@ -29,7 +29,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class CollectionEditActivity extends FragmentActivity {
+public class CollectionEditActivity extends BaseActivity {
 	
 	private int clas;
 	private ViewPager viewPager;
