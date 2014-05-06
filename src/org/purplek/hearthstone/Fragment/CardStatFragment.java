@@ -70,8 +70,12 @@ public class CardStatFragment extends Fragment implements OnItemClickListener {
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		// TODO Auto-generated method stub
+		Intent intent = new Intent(getString(R.string.action_update_card_select));
+		intent.putExtra("name", list.get(position).name);
+		getActivity().sendBroadcast(intent);
 		list.remove(position);
 		adapter.notifyDataSetChanged();
+		activity.setActivityTitle();
 	}
 	
 	public CardSelectedAdapter getAdapter(){
@@ -83,7 +87,9 @@ public class CardStatFragment extends Fragment implements OnItemClickListener {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			// TODO Auto-generated method stub
-			adapter.notifyDataSetChanged();
+			if(intent.getAction().equals(getString(R.string.action_update_card_stat))){
+				adapter.notifyDataSetChanged();
+			}
 		}
 		
 	}

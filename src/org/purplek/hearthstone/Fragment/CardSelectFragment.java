@@ -1,6 +1,7 @@
 package org.purplek.hearthstone.Fragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,10 @@ import org.purplek.hearthstone.database.DatabaseHelper;
 import org.purplek.hearthstone.model.Card;
 import org.purplek.heartstone.utils.PhoneUtil;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -48,6 +52,7 @@ public class CardSelectFragment extends Fragment implements OnScrollListener,
 	private final static int QUERY_FINISH = 102;
 	
 	private CollectionEditActivity activity;
+	private CardSelectReceiver receiver;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -61,8 +66,19 @@ public class CardSelectFragment extends Fragment implements OnScrollListener,
 		}
 		cardAdapter = new CardAdapter(getActivity(), list);
 		activity = (CollectionEditActivity) getActivity();
+		
+		receiver = new CardSelectReceiver();
+		IntentFilter filter = new IntentFilter(getString(R.string.action_update_card_select));
+		getActivity().registerReceiver(receiver, filter);
 	}
 	
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		getActivity().unregisterReceiver(receiver);
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -120,13 +136,14 @@ public class CardSelectFragment extends Fragment implements OnScrollListener,
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
-		if(activity.count == 30){
+		if(activity.cards.size() == 30){
 			PhoneUtil.showToast(getActivity(), R.string.cannot_select_more_card);
 			return;
 		}
 		addCardToList(position);
 		Intent intent = new Intent(getString(R.string.action_update_card_stat));
-		getActivity().sendBroadcast(intent);
+		activity.sendBroadcast(intent);
+		activity.setActivityTitle();
 	}
 	
 	/**
@@ -138,7 +155,8 @@ public class CardSelectFragment extends Fragment implements OnScrollListener,
 		// TODO Auto-generated method stub
 		removeCardFromList(position);
 		Intent intent = new Intent(getString(R.string.action_update_card_stat));
-		getActivity().sendBroadcast(intent);
+		activity.sendBroadcast(intent);
+		activity.setActivityTitle();
 		return true;
 	}
 	
@@ -148,7 +166,6 @@ public class CardSelectFragment extends Fragment implements OnScrollListener,
 		Integer count = tempMap.get(tempCard.name);
 		if(count == null){
 			tempMap.put(tempCard.name, 1);
-			activity.count++;
 			activity.cards.add(tempCard);
 		} else {
 			if(count == 1){
@@ -156,7 +173,6 @@ public class CardSelectFragment extends Fragment implements OnScrollListener,
 					PhoneUtil.showToast(getActivity(), R.string.cannot_select_more_legend);
 				} else {
 					tempMap.put(tempCard.name, 2);
-					activity.count++;
 					activity.cards.add(tempCard);
 				}
 			} else {
@@ -167,7 +183,7 @@ public class CardSelectFragment extends Fragment implements OnScrollListener,
 	}
 	
 	public void removeCardFromList(int position){
-		if(activity.count == 0){
+		if(activity.cards.size() == 0){
 			return ;
 		}
 		Map<String, Integer> tempMap = cardAdapter.getSelectedMap();
@@ -178,12 +194,10 @@ public class CardSelectFragment extends Fragment implements OnScrollListener,
 		} else {
 			if(count == 2){
 				tempMap.put(tempCard.name, 1);
-				activity.count--;
 				activity.cards.remove(tempCard);
 			}
 			if(count == 1){
 				tempMap.remove(tempCard.name);
-				activity.count--;
 				activity.cards.remove(tempCard.id);
 			}
 		}
@@ -206,4 +220,26 @@ public class CardSelectFragment extends Fragment implements OnScrollListener,
 		}
 		
 	};
+	
+	private class CardSelectReceiver extends BroadcastReceiver{
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			if(intent.getAction().equals(getString(R.string.action_update_card_select))){
+				String name = intent.getStringExtra("name");
+				HashMap<String, Integer> temp = cardAdapter.getSelectedMap();
+				Integer count = temp.get(name);
+				if(count != null){
+					if(count == 2){
+						temp.put(name, 1);
+					} else {
+						temp.remove(name);
+					}
+					cardAdapter.notifyDataSetChanged();
+				}
+			}
+		}
+		
+	}
 }

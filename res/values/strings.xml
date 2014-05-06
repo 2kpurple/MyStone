@@ -3,6 +3,7 @@
 
     <!-- 自定义Action -->
     <string name="action_update_card_stat">org.purplek.hearthstone.UPDATE_CARD_STAT</string>
+    <string name="action_update_card_select">org.purplek.hearthstone.UPDATE_CARD_SELECT</string>
     
     <!-- <string name="app_name">K酱的炉石旅店</string> -->
     <string name="app_name">旅店老板的女儿</string>
@@ -36,6 +37,8 @@
     <string name="select_neutral_card">选择中立卡牌</string>
     
     <string name="card_stat">卡牌统计</string>
+    
+    <string name="selected_count">(%s/30)</string>
 
     <!-- 设置页面相关字符串 -->
     <string name="filter_collectable">过滤不可收集卡牌</string>

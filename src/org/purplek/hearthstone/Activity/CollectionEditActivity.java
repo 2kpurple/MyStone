@@ -2,6 +2,7 @@ package org.purplek.hearthstone.Activity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.purplek.hearthstone.R;
 import org.purplek.hearthstone.Fragment.CardSelectFragment;
@@ -11,6 +12,7 @@ import org.purplek.hearthstone.model.Card;
 import org.purplek.hearthstone.model.Collection;
 import org.purplek.hearthstone.support.PriorityList;
 import org.purplek.heartstone.utils.PhoneUtil;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,8 +32,8 @@ public class CollectionEditActivity extends BaseActivity {
 	private List<Fragment> list;
 	
 	public List<Card> cards;	// 保存卡牌的list
-	public int count = 0;   //	保存选择的卡牌数
 	
+	private final static String COUNT_FORMAT = "(%d/30)";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,23 @@ public class CollectionEditActivity extends BaseActivity {
 		// 如果是编辑 传入编辑参数 如果是新建，则不需要
 		initViewPager();
 		
-		setTitle(R.string.select_class_card);
+		setActivityTitle();
+	}
+	
+	public void setActivityTitle(){
+		int position = viewPager.getCurrentItem();
+		String count = String.format(COUNT_FORMAT, cards.size());
+		switch (position) {
+		case 0:
+			setTitle(getString(R.string.select_class_card) + count);
+			break;
+		case 1:
+			setTitle(getString(R.string.select_neutral_card) + count);
+			break;
+		case 2:
+			setTitle(getString(R.string.card_stat) + count);
+			break;
+		}
 	}
 	
 	private void initViewPager(){
@@ -58,17 +76,7 @@ public class CollectionEditActivity extends BaseActivity {
 			@Override
 			public void onPageSelected(int position) {
 				// TODO Auto-generated method stub
-				switch (position) {
-				case 0:
-					setTitle(R.string.select_class_card);
-					break;
-				case 1:
-					setTitle(R.string.select_neutral_card);
-					break;
-				case 2:
-					setTitle(R.string.card_stat);
-					break;
-				}
+				setActivityTitle();
 			}
 			
 			@Override
@@ -126,7 +134,7 @@ public class CollectionEditActivity extends BaseActivity {
 	}
 	
 	private void saveCollection(){
-		if(count < 30){
+		if(cards.size() < 30){
 			System.out.println("no cards");
 			return;
 		}
