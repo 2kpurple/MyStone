@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- 自定义Action -->
+    <string name="action_update_card_stat">org.purplek.hearthstone.UPDATE_CARD_STAT</string>
+    
     <!-- <string name="app_name">K酱的炉石旅店</string> -->
     <string name="app_name">旅店老板的女儿</string>
     <string name="hello_world">Hello world!</string>

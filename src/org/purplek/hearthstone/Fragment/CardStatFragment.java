@@ -7,6 +7,10 @@ import org.purplek.hearthstone.Activity.CollectionEditActivity;
 import org.purplek.hearthstone.adapter.CardSelectedAdapter;
 import org.purplek.hearthstone.model.Card;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -22,6 +26,7 @@ public class CardStatFragment extends Fragment implements OnItemClickListener {
 	private ListView listView;
 	private CardSelectedAdapter adapter;
 	private CollectionEditActivity activity;
+	private CardStatReceiver receiver;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,16 @@ public class CardStatFragment extends Fragment implements OnItemClickListener {
 		activity = (CollectionEditActivity) getActivity();
 		list = activity.cards;
 		adapter = new CardSelectedAdapter(activity, list);
+		receiver = new CardStatReceiver();
+		IntentFilter filter = new IntentFilter(getActivity().getString(R.string.action_update_card_stat));
+		getActivity().registerReceiver(receiver, filter);
+	}
+
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		getActivity().unregisterReceiver(receiver);
+		super.onDestroy();
 	}
 
 	@Override
@@ -55,6 +70,21 @@ public class CardStatFragment extends Fragment implements OnItemClickListener {
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		// TODO Auto-generated method stub
+		list.remove(position);
+		adapter.notifyDataSetChanged();
+	}
+	
+	public CardSelectedAdapter getAdapter(){
+		return this.adapter;
+	}
+	
+	private class CardStatReceiver extends BroadcastReceiver{
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			adapter.notifyDataSetChanged();
+		}
 		
 	}
 

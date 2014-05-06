@@ -1,27 +1,21 @@
 package org.purplek.hearthstone.Activity;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.purplek.hearthstone.R;
 import org.purplek.hearthstone.Fragment.CardSelectFragment;
-import org.purplek.hearthstone.Fragment.DisplayFragment;
+import org.purplek.hearthstone.Fragment.CardStatFragment;
 import org.purplek.hearthstone.database.DatabaseHelper;
 import org.purplek.hearthstone.model.Card;
 import org.purplek.hearthstone.model.Collection;
 import org.purplek.hearthstone.support.PriorityList;
 import org.purplek.heartstone.utils.PhoneUtil;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -81,7 +75,6 @@ public class CollectionEditActivity extends BaseActivity {
 			public void onPageScrolled(int position, float positionOffset,
 					int positionOffsetPixels) {
 				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
@@ -93,13 +86,14 @@ public class CollectionEditActivity extends BaseActivity {
 		MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
 		list = new ArrayList<Fragment>();
 		
-		CardSelectFragment fragment1 = new CardSelectFragment();
+		CardSelectFragment fragment = new CardSelectFragment();
 		Bundle bundle = new Bundle();
 		bundle.putInt("class", clas);
-		fragment1.setArguments(bundle);
+		fragment.setArguments(bundle);
 		
-		list.add(fragment1);
+		list.add(fragment);
 		list.add(new CardSelectFragment());
+		list.add(new CardStatFragment());
 		viewPager.setAdapter(adapter);
 	}
 	
@@ -119,6 +113,7 @@ public class CollectionEditActivity extends BaseActivity {
 		switch (id) {
 		case android.R.id.home:
 			finish();
+			break;
 		case R.id.action_save_collection:
 			saveCollection();
 			PhoneUtil.showToast(this, R.string.insert_success);
@@ -164,16 +159,4 @@ public class CollectionEditActivity extends BaseActivity {
 		}
 		
 	}
-	
-	private Handler handler = new Handler(){
-
-		@Override
-		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
-		}
-		
-	};
-	
-	
-	
 }

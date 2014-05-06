@@ -12,6 +12,7 @@ import org.purplek.hearthstone.database.DatabaseHelper;
 import org.purplek.hearthstone.model.Card;
 import org.purplek.heartstone.utils.PhoneUtil;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -123,6 +124,25 @@ public class CardSelectFragment extends Fragment implements OnScrollListener,
 			PhoneUtil.showToast(getActivity(), R.string.cannot_select_more_card);
 			return;
 		}
+		addCardToList(position);
+		Intent intent = new Intent(getString(R.string.action_update_card_stat));
+		getActivity().sendBroadcast(intent);
+	}
+	
+	/**
+	 * 长按取消选择
+	 */
+	@Override
+	public boolean onItemLongClick(AdapterView<?> parent, View view,
+			int position, long id) {
+		// TODO Auto-generated method stub
+		removeCardFromList(position);
+		Intent intent = new Intent(getString(R.string.action_update_card_stat));
+		getActivity().sendBroadcast(intent);
+		return true;
+	}
+	
+	public void addCardToList(int position){
 		Map<String, Integer> tempMap = cardAdapter.getSelectedMap();
 		Card tempCard = list.get(position);
 		Integer count = tempMap.get(tempCard.name);
@@ -146,21 +166,15 @@ public class CardSelectFragment extends Fragment implements OnScrollListener,
 		cardAdapter.notifyDataSetChanged();
 	}
 	
-	/**
-	 * 长按取消选择
-	 */
-	@Override
-	public boolean onItemLongClick(AdapterView<?> parent, View view,
-			int position, long id) {
-		// TODO Auto-generated method stub
+	public void removeCardFromList(int position){
 		if(activity.count == 0){
-			return true;
+			return ;
 		}
 		Map<String, Integer> tempMap = cardAdapter.getSelectedMap();
 		Card tempCard = list.get(position);
 		Integer count = tempMap.get(tempCard.name);
 		if(count == null){
-			return true;
+			return;
 		} else {
 			if(count == 2){
 				tempMap.put(tempCard.name, 1);
@@ -174,7 +188,6 @@ public class CardSelectFragment extends Fragment implements OnScrollListener,
 			}
 		}
 		cardAdapter.notifyDataSetChanged();
-		return true;
 	}
 	
 	private Handler handler = new Handler(){
