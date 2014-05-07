@@ -35,6 +35,13 @@ public class CollectionEditActivity extends BaseActivity {
 	
 	private final static String COUNT_FORMAT = "(%d/30)";
 
+	/**
+	 * 这个activity 3个地方使用
+	 * Edit时使用，添加时使用，查看时使用
+	 * 查看时传入id
+	 * 添加时不传入
+	 * 编辑时传入list
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
