@@ -316,7 +316,7 @@ public class DatabaseHelper {
 		
 		// 获取卡组卡牌ID字符串
 		Cursor cursor = mDatabase.query(TABLE_CARDS,
-				new String[] { COL_CARDS }, COL_CARDSID + " = ?",
+				new String[] { COL_CARDS }, COL_COLLID + " = ?",
 				new String[] { String.valueOf(id) }, null, null, null);
 		
 		String cards = null;
@@ -335,6 +335,22 @@ public class DatabaseHelper {
 		}
 		
 		return list;
+	}
+	
+	/**
+	 * 删除卡牌组
+	 * @param id
+	 */
+	public void deleteCollection(int id){
+		mDatabase.beginTransaction();
+		String whereClause = COL_COLLID + " = ?";
+		String[] whereArgs = {String.valueOf(id)};
+		int flag1 = mDatabase.delete(TABLE_COLL, COL_COLLID + " = ?", whereArgs);
+		int flag2 = mDatabase.delete(TABLE_CARDS, whereClause, whereArgs);
+		if(flag1 != 0 && flag2 != 0){
+			mDatabase.setTransactionSuccessful();
+		}
+		mDatabase.endTransaction();
 	}
 	
 	private Card getCard(Cursor cursor){

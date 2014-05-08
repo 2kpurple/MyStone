@@ -34,14 +34,15 @@
     <string name="edit">编辑</string>
     
     <string name="insert_success">添加成功</string>
+    <string name="remove_success">删除成功</string>
     
     <string name="select_class_card">选择职业卡牌</string>
     <string name="select_neutral_card">选择中立卡牌</string>
     
     <string name="card_stat">卡牌统计</string>
     
-    <string name="selected_count">(%s/30)</string>
-
+    <string name="confirm_remove">真的要删除吗？</string>
+    
     <!-- 设置页面相关字符串 -->
     <string name="filter_collectable">过滤不可收集卡牌</string>
     <string name="filter_summary">打开该功能后，卡牌列表中只包含能作为手牌的卡牌</string>

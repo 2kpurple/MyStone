@@ -30,4 +30,5 @@ public class BaseActivity extends FragmentActivity {
 		overridePendingTransition(R.anim.enter_from_left,
 				R.anim.leave_to_right);
 	}
+	
 }

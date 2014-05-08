@@ -8,5 +8,12 @@
         android:showAsAction="always"
         android:icon="@drawable/ic_action_edit"
         android:title="@string/edit"/>
+    
+	<item
+        android:id="@+id/action_remove_collection"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_discard"
+        android:title="@string/remove"/>
 
 </menu>
