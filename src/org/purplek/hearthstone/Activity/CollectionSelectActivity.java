@@ -20,10 +20,13 @@ import android.hardware.Camera.Size;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class CollectionSelectActivity extends BaseActivity {
+public class CollectionSelectActivity extends BaseActivity implements OnItemClickListener {
 	
 	private int clas;
 	private List<Collection> list;
@@ -58,6 +61,7 @@ public class CollectionSelectActivity extends BaseActivity {
 		listView.setEmptyView(tv);
 		adapter = new CollectionAdapter(this, list);
 		listView.setAdapter(adapter);
+		listView.setOnItemClickListener(this);
 	}
 	
 	private void queryCollection(){
@@ -96,5 +100,15 @@ public class CollectionSelectActivity extends BaseActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent(this, CardDisplayActivity.class);
+		intent.putExtra("coll_id", list.get(position).id);
+		startActivity(intent);
+	}
+
+	
 
 }

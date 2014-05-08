@@ -328,7 +328,7 @@ public class DatabaseHelper {
 		String[] cardId = cards.split(",");
 		Cursor cardCursor = null;
 		for(int i = 0 ; i < cardId.length ; i++){
-			cardCursor = mDatabase.query(TABLE_CARDS, null, COLUMN_ID + " = ?", new String[]{cardId[i]}, null, null, null);
+			cardCursor = mDatabase.query(TABLE_INFO, null, COLUMN_ID + " = ?", new String[]{cardId[i]}, null, null, null);
 			if(cardCursor != null && cardCursor.moveToFirst()){
                 list.add(getCard(cardCursor));
 			}

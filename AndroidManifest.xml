@@ -50,6 +50,9 @@
             android:name="org.purplek.hearthstone.Activity.CollectionSelectActivity"
             android:label="@string/title_activity_select_collection" >
         </activity>
+        <activity
+            android:name="org.purplek.hearthstone.Activity.CardDisplayActivity">
+        </activity>
     </application>
 
 </manifest>
