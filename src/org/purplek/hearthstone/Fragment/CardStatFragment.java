@@ -6,6 +6,7 @@ import org.purplek.hearthstone.R;
 import org.purplek.hearthstone.Activity.CollectionEditActivity;
 import org.purplek.hearthstone.adapter.CardSelectedAdapter;
 import org.purplek.hearthstone.model.Card;
+import org.purplek.hearthstone.support.BarView;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

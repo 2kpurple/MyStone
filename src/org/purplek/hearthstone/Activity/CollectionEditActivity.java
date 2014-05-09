@@ -2,7 +2,6 @@ package org.purplek.hearthstone.Activity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import org.purplek.hearthstone.Constant;
 import org.purplek.hearthstone.R;
@@ -17,8 +16,8 @@ import org.purplek.heartstone.utils.PhoneUtil;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -37,7 +36,7 @@ public class CollectionEditActivity extends BaseActivity {
 	private List<Fragment> list;
 	
 	public List<Card> cards;	// 保存卡牌的list
-	private Dialog dialog;
+	private Dialog cancelDialog;
 	
 	private final static String COUNT_FORMAT = "(%d/30)";
 
@@ -124,7 +123,7 @@ public class CollectionEditActivity extends BaseActivity {
 		builder.setPositiveButton(R.string.confirm, new OnClickListener() {
 			
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
+			public void onClick(DialogInterface cancelDialog, int which) {
 				// TODO Auto-generated method stub
 				new Thread(new Runnable() {
 					
@@ -139,16 +138,16 @@ public class CollectionEditActivity extends BaseActivity {
 		builder.setNegativeButton(R.string.cancel, new OnClickListener() {
 			
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
+			public void onClick(DialogInterface cancelDialog, int which) {
 				// TODO Auto-generated method stub
-				dialog.dismiss();
+				cancelDialog.dismiss();
 			}
 		});
-		dialog = builder.create();
+		cancelDialog = builder.create();
 	}
 	
 	private void showCancelDialog(){
-		dialog.show();
+		cancelDialog.show();
 	}
 	
 	@Override
@@ -185,7 +184,7 @@ public class CollectionEditActivity extends BaseActivity {
 	}
 
 	private void saveCollection(){
-
+		
 		new Thread(new Runnable() {
 			
 			@Override
@@ -217,6 +216,7 @@ public class CollectionEditActivity extends BaseActivity {
 				break;
 			case Constant.INSERT_SUCCESS:
 				PhoneUtil.showToast(CollectionEditActivity.this, R.string.insert_success);
+				setResult(RESULT_OK);
 				finish();
 				break;
 			}

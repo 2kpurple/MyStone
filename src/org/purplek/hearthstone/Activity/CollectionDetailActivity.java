@@ -2,6 +2,7 @@ package org.purplek.hearthstone.Activity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.purplek.hearthstone.Constant;
@@ -9,16 +10,19 @@ import org.purplek.hearthstone.R;
 import org.purplek.hearthstone.adapter.CardAdapter;
 import org.purplek.hearthstone.database.DatabaseHelper;
 import org.purplek.hearthstone.model.Card;
+import org.purplek.hearthstone.support.BarView;
 import org.purplek.heartstone.utils.PhoneUtil;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +38,7 @@ public class CollectionDetailActivity extends BaseActivity implements OnItemClic
 	private int collId;
 	private String collName;
 	private AlertDialog dialog;
-	
+	private BarView barView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +64,21 @@ public class CollectionDetailActivity extends BaseActivity implements OnItemClic
 		listView = (ListView) findViewById(R.id.card_list);
 		list = new ArrayList<Card>();
 		adapter = new CardAdapter(this, list);
+		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View headerView = inflater.inflate(R.layout.list_headview_card_stat,
+				null);
+		barView = (BarView) headerView.findViewById(R.id.barView);
+		barView.setTextSize(20);
+		listView.addHeaderView(headerView);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(this);
+
+		List<String> bottomStringList = Arrays.asList(Constant.COST_ARRAY);
+		barView.setBottomTextList(bottomStringList);
+		adapter.notifyDataSetChanged();
+
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
