@@ -2,20 +2,17 @@ package org.purplek.hearthstone.Fragment;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
-import org.purplek.hearthstone.CardListManager;
 import org.purplek.hearthstone.R;
-import org.purplek.hearthstone.R.drawable;
-import org.purplek.hearthstone.Activity.CardDetialActivity;
+import org.purplek.hearthstone.Activity.CardDetailActivity;
 import org.purplek.hearthstone.model.Card;
 
-import android.support.v4.app.Fragment;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +22,7 @@ import android.widget.TextView;
 public class CardDetailFragment extends Fragment {
 	
 	private int num;
+	private List<Card> cards;
 	
 	/**
 	 * 获取fragment的实例
@@ -47,6 +45,7 @@ public class CardDetailFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		num = getArguments() != null ? getArguments().getInt("num") : 0;
+		cards = ((CardDetailActivity)getActivity()).cards;
 	}
 
 	@Override
@@ -62,12 +61,12 @@ public class CardDetailFragment extends Fragment {
 		TextView classText = (TextView) view.findViewById(R.id.detail_class_text);
 		TextView flavorText = (TextView) view.findViewById(R.id.detail_flavor_text);
 		
-		Card card = CardListManager.getInstance().getList().get(num);
+		Card card = cards.get(num);
 		
 		// 设置卡牌显示数据
-		String type = ((CardDetialActivity)getActivity()).typeStrings[card.type + 1];
-		String clas = ((CardDetialActivity)getActivity()).classStrings[card.clas + 1];
-		String rarity = ((CardDetialActivity)getActivity()).rarityStrings[card.rarity + 1];
+		String type = ((CardDetailActivity)getActivity()).typeStrings[card.type + 1];
+		String clas = ((CardDetailActivity)getActivity()).classStrings[card.clas + 1];
+		String rarity = ((CardDetailActivity)getActivity()).rarityStrings[card.rarity + 1];
 		typeText.setText(type);
 		rarityText.setText(rarity);
 		classText.setText(clas);

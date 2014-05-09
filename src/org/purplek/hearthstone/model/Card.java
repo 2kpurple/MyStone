@@ -1,11 +1,13 @@
 package org.purplek.hearthstone.model;
 
+import java.io.Serializable;
+
 /**
  * Created by purplekfung on 14-1-3.
  * CardInfo保存卡片的基本信息
  */
 
-public class Card implements Comparable<Card>{
+public class Card implements Comparable<Card>, Serializable{
     public int id;
     public String name;
     public int clas;

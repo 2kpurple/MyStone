@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.purplek.hearthstone.CardListManager;
 import org.purplek.hearthstone.R;
 import org.purplek.hearthstone.Activity.CollectionEditActivity;
 import org.purplek.hearthstone.adapter.CardAdapter;
@@ -25,7 +24,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -198,7 +196,7 @@ public class CardSelectFragment extends Fragment implements OnScrollListener,
 			}
 			if(count == 1){
 				tempMap.remove(tempCard.name);
-				activity.cards.remove(tempCard.id);
+				activity.cards.remove(tempCard);
 			}
 		}
 		cardAdapter.notifyDataSetChanged();

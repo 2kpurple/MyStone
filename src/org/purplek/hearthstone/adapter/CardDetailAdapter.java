@@ -1,7 +1,10 @@
 package org.purplek.hearthstone.adapter;
 
+import java.util.List;
+
 import org.purplek.hearthstone.CardListManager;
 import org.purplek.hearthstone.Fragment.CardDetailFragment;
+import org.purplek.hearthstone.model.Card;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,8 +12,11 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class CardDetailAdapter extends FragmentStatePagerAdapter {
 	
-	public CardDetailAdapter(FragmentManager fm) {
+	private List<Card> list;
+	
+	public CardDetailAdapter(FragmentManager fm, List<Card> list) {
 		super(fm);
+		this.list = list;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -23,7 +29,7 @@ public class CardDetailAdapter extends FragmentStatePagerAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return CardListManager.getInstance().getList().size();
+		return list.size();
 	}
 
 }

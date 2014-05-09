@@ -3,22 +3,14 @@ package org.purplek.hearthstone.Activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.transform.Templates;
-
 import org.purplek.hearthstone.Constant;
 import org.purplek.hearthstone.R;
-import org.purplek.hearthstone.R.array;
-import org.purplek.hearthstone.R.id;
-import org.purplek.hearthstone.R.layout;
-import org.purplek.hearthstone.R.menu;
 import org.purplek.hearthstone.adapter.CollectionAdapter;
 import org.purplek.hearthstone.database.DatabaseHelper;
 import org.purplek.hearthstone.model.Collection;
-import org.purplek.heartstone.utils.PhoneUtil;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.hardware.Camera.Size;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,9 +18,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class CollectionSelectActivity extends BaseActivity implements OnItemClickListener {
 	
@@ -45,8 +37,6 @@ public class CollectionSelectActivity extends BaseActivity implements OnItemClic
 		
 		Intent intent = getIntent();
 		clas = intent.getIntExtra("class", -1);
-		
-		
 		
 		initTitle();
 		initList();
@@ -102,7 +92,7 @@ public class CollectionSelectActivity extends BaseActivity implements OnItemClic
 		case R.id.action_new_collection:
 			Intent intent = new Intent(this, CollectionEditActivity.class);
 			intent.putExtra("class", clas);
-			startActivity(intent);
+			startActivityForResult(intent, Constant.DETAIL_FINISH);
 			break;
 		case android.R.id.home:
 			finish();

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.purplek.hearthstone.Constant;
 import org.purplek.hearthstone.R;
 import org.purplek.hearthstone.Fragment.CardSelectFragment;
 import org.purplek.hearthstone.Fragment.CardStatFragment;
@@ -13,7 +14,11 @@ import org.purplek.hearthstone.model.Collection;
 import org.purplek.hearthstone.support.PriorityList;
 import org.purplek.heartstone.utils.PhoneUtil;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -32,6 +37,7 @@ public class CollectionEditActivity extends BaseActivity {
 	private List<Fragment> list;
 	
 	public List<Card> cards;	// 保存卡牌的list
+	private Dialog dialog;
 	
 	private final static String COUNT_FORMAT = "(%d/30)";
 
@@ -56,7 +62,7 @@ public class CollectionEditActivity extends BaseActivity {
 		
 		// 如果是编辑 传入编辑参数 如果是新建，则不需要
 		initViewPager();
-		
+		initDialog();
 		setActivityTitle();
 	}
 	
@@ -112,6 +118,39 @@ public class CollectionEditActivity extends BaseActivity {
 		viewPager.setAdapter(adapter);
 	}
 	
+	private void initDialog(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(getString(R.string.confirm_cancel));
+		builder.setPositiveButton(R.string.confirm, new OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						finish();
+					}
+				}).start();
+			}
+		});
+		builder.setNegativeButton(R.string.cancel, new OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+			}
+		});
+		dialog = builder.create();
+	}
+	
+	private void showCancelDialog(){
+		dialog.show();
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -127,31 +166,63 @@ public class CollectionEditActivity extends BaseActivity {
 		int id = item.getItemId();
 		switch (id) {
 		case android.R.id.home:
-			finish();
+			showCancelDialog();
 			break;
 		case R.id.action_save_collection:
 			saveCollection();
-			PhoneUtil.showToast(this, R.string.insert_success);
-			finish();
 			break;
 		case R.id.action_cancel_collection:
+			showCancelDialog();
 			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 	
-	private void saveCollection(){
-		if(cards.size() < 30){
-			System.out.println("no cards");
-			return;
-		}
-		DatabaseHelper helper = DatabaseHelper.getInstance(this);
-		Collection coll = new Collection();
-		coll.cards = cards;
-		coll.clas = clas;
-		coll.name = "test";
-		helper.insertCollection(coll);
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		showCancelDialog();
 	}
+
+	private void saveCollection(){
+
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if(cards.size() < 30){
+					handler.sendEmptyMessage(Constant.CARDS_NOT_ENOUGH);
+					return;
+				}
+				DatabaseHelper helper = DatabaseHelper.getInstance(CollectionEditActivity.this);
+				Collection coll = new Collection();
+				coll.cards = cards;
+				coll.clas = clas;
+				coll.name = "test";
+				helper.insertCollection(coll);
+				handler.sendEmptyMessage(Constant.INSERT_SUCCESS);
+			}
+		}).start();
+	}
+	
+	private Handler handler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			switch (msg.what) {
+			case Constant.CARDS_NOT_ENOUGH:
+				PhoneUtil.showToast(CollectionEditActivity.this, R.string.cards_not_enought);
+				break;
+			case Constant.INSERT_SUCCESS:
+				PhoneUtil.showToast(CollectionEditActivity.this, R.string.insert_success);
+				finish();
+				break;
+			}
+		}
+		
+	};
 	
 	private class MyPagerAdapter extends FragmentPagerAdapter{
 		

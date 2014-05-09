@@ -41,7 +41,9 @@
     
     <string name="card_stat">卡牌统计</string>
     
+    <string name="confirm_cancel">真的要取消吗？\n取消之后就不保存咯！</string>
     <string name="confirm_remove">真的要删除吗？</string>
+    <string name="cards_not_enought">卡牌不够30张哦！</string>
     
     <!-- 设置页面相关字符串 -->
     <string name="filter_collectable">过滤不可收集卡牌</string>

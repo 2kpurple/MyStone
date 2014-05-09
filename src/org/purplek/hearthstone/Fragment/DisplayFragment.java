@@ -2,20 +2,21 @@ package org.purplek.hearthstone.Fragment;
 
 import org.purplek.hearthstone.CardListManager;
 import org.purplek.hearthstone.R;
-import org.purplek.hearthstone.Activity.CardDetialActivity;
+import org.purplek.hearthstone.Activity.CardDetailActivity;
 import org.purplek.hearthstone.Activity.MainActivity;
 import org.purplek.hearthstone.adapter.CardAdapter;
-import android.support.v4.app.Fragment;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -193,7 +194,7 @@ public class DisplayFragment extends Fragment implements OnScrollListener, OnIte
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		// TODO Auto-generated method stub
-		Intent intent = new Intent(getActivity(), CardDetialActivity.class);
+		Intent intent = new Intent(getActivity(), CardDetailActivity.class);
 		intent.putExtra("num", position);
 		getActivity().startActivityForResult(intent, MainActivity.REQ_DETIAL);
 	}

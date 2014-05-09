@@ -1,5 +1,6 @@
 package org.purplek.hearthstone.Activity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +21,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class CollectionDetailActivity extends Activity {
+public class CollectionDetailActivity extends BaseActivity implements OnItemClickListener {
 	
 	private ListView listView;
 	private CardAdapter adapter;
@@ -57,6 +61,7 @@ public class CollectionDetailActivity extends Activity {
 		list = new ArrayList<Card>();
 		adapter = new CardAdapter(this, list);
 		listView.setAdapter(adapter);
+		listView.setOnItemClickListener(this);
 		new Thread(new Runnable() {
 			
 			@Override
@@ -143,6 +148,7 @@ public class CollectionDetailActivity extends Activity {
 			finish();
 			break;
 		case R.id.action_edit_collection:
+			
 			break;
 		case R.id.action_remove_collection:
 			dialog.show();
@@ -162,6 +168,16 @@ public class CollectionDetailActivity extends Activity {
 		DatabaseHelper helper = DatabaseHelper.getInstance(this);
 		helper.deleteCollection(collId);
 		handler.sendEmptyMessage(Constant.DELETE_SUCCESS);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent(this, CardDetailActivity.class);
+		intent.putExtra(Constant.NUM, position);
+		intent.putExtra(Constant.LIST, (Serializable)list);
+		startActivity(intent);
 	}
 	
 }
