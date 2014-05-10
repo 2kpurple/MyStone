@@ -81,6 +81,9 @@ public class DatabaseHelper {
 	private static final String COL_CLASS = "class";
 	private static final String COL_CARDS = "cards";
 	private static final String COL_NAME = "name";
+	private static final String COL_ORANGE = "orange";
+	private static final String COL_PURPLE = "purple";
+	private static final String COL_BLUE = "blue";
 	
 	private static final String TABLE_CARDS = "cards";
 	private static final String COL_CARDSID = "cards_id";
@@ -247,14 +250,24 @@ public class DatabaseHelper {
 	 */
 	public void insertCollection(Collection coll){
 		
+		int orange = 0, blue = 0, purple = 0;
+		
 		//生成所选卡牌字符串s
 		StringBuffer buffer = new StringBuffer();
-//		for(int i = 0; i < coll.cards.size() ; i++){
-//			buffer.append(coll.cards.get(i).id + ",");
-//		}
-		Iterator<Card> it = coll.cards.iterator();
-		while (it.hasNext()){
-			buffer.append(it.next().id + ",");
+		for(int i = 0; i < coll.cards.size() ; i++){
+			Card tmp = coll.cards.get(i);
+			buffer.append(tmp.id + ",");
+			switch (tmp.rarity) {
+			case 4:
+				orange++;
+				break;
+			case 3:
+				purple++;
+				break;
+			case 2:
+				blue++;
+				break;
+			}
 		}
 		buffer.deleteCharAt(buffer.length() - 1);
 		
@@ -262,6 +275,9 @@ public class DatabaseHelper {
 		ContentValues cvColl = new ContentValues();
 		cvColl.put(COL_CLASS, coll.clas);
 		cvColl.put(COL_NAME, coll.name);
+		cvColl.put(COL_ORANGE, orange);
+		cvColl.put(COL_PURPLE, purple);
+		cvColl.put(COL_BLUE, blue);
 		
 		//插入数据到cards表
 		ContentValues cvCard = new ContentValues();
@@ -299,6 +315,9 @@ public class DatabaseHelper {
 				collection.name = cursor.getString(cursor.getColumnIndex(COL_NAME));
 				collection.id = cursor.getInt(cursor.getColumnIndex(COL_COLLID));
 				collection.clas = cursor.getInt(cursor.getColumnIndex(COL_CLASS));
+				collection.orange = cursor.getInt(cursor.getColumnIndex(COL_ORANGE));
+				collection.blue = cursor.getInt(cursor.getColumnIndex(COL_BLUE));
+				collection.purple = cursor.getInt(cursor.getColumnIndex(COL_PURPLE));
 				list.add(collection);
 				cursor.moveToNext();
 			}

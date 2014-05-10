@@ -12,4 +12,7 @@ public class Collection {
 	public int clas;
 	public List<Card> cards;
 	public String name;
+	public int orange;
+	public int purple;
+	public int blue;
 }

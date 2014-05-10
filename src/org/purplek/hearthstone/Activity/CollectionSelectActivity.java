@@ -36,7 +36,7 @@ public class CollectionSelectActivity extends BaseActivity implements OnItemClic
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		Intent intent = getIntent();
-		clas = intent.getIntExtra("class", -1);
+		clas = intent.getIntExtra(Constant.CLASS_KEY, -1);
 		
 		initTitle();
 		initList();

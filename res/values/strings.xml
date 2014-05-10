@@ -45,6 +45,10 @@
     <string name="confirm_remove">真的要删除吗？</string>
     <string name="cards_not_enought">卡牌不够30张哦！</string>
     
+    <string name="orange">橙</string>
+    <string name="blue">蓝</string>
+    <string name="purple">紫</string>
+    
     <!-- 设置页面相关字符串 -->
     <string name="filter_collectable">过滤不可收集卡牌</string>
     <string name="filter_summary">打开该功能后，卡牌列表中只包含能作为手牌的卡牌</string>

@@ -451,7 +451,8 @@ public class MainActivity extends BaseActivity implements
 			}
 			break;
 		case REQ_DETIAL:
-			displayFragment.getCardAdapter().notifyDataSetChanged();
+			if(displayFragment.getCardAdapter() != null)
+				displayFragment.getCardAdapter().notifyDataSetChanged();
 			break;
 		}
 	}

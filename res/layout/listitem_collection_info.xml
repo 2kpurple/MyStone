@@ -1,12 +1,66 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/note_shadow" >
 
-    <TextView
-        android:id="@+id/collection_name"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/item_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:background="@drawable/note_background_selector"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="10dp" >
+
+        <LinearLayout
+            android:id="@+id/card_info_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/collection_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="超强神级垃圾牌"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/primary_text_color" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/card_info_content"
+            android:layout_centerVertical="true" >
+
+            <TextView
+                android:id="@+id/orange_card_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="橙 7"
+                android:textColor="@color/orange"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/purple_card_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="紫 10"
+                android:textColor="@color/purple"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/blue_card_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="蓝 8"
+                android:textColor="@color/blue"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

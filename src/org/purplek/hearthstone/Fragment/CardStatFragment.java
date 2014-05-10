@@ -6,7 +6,6 @@ import org.purplek.hearthstone.R;
 import org.purplek.hearthstone.Activity.CollectionEditActivity;
 import org.purplek.hearthstone.adapter.CardSelectedAdapter;
 import org.purplek.hearthstone.model.Card;
-import org.purplek.hearthstone.support.BarView;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -18,8 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 
 public class CardStatFragment extends Fragment implements OnItemClickListener {
 	
