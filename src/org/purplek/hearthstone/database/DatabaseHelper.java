@@ -330,16 +330,19 @@ public class DatabaseHelper {
 	 * 获取某个卡组中的卡牌
 	 * @return
 	 */
-	public List<Card> queryCollectedCards(int id){
+	public Collection queryCollectedCards(int id){
+		Collection collection = new Collection();
 		List<Card> list = new ArrayList<Card>();
+		int cardsId = 0;
 		
 		// 获取卡组卡牌ID字符串
 		Cursor cursor = mDatabase.query(TABLE_CARDS,
-				new String[] { COL_CARDS }, COL_COLLID + " = ?",
+				new String[] { COL_CARDSID, COL_CARDS }, COL_COLLID + " = ?",
 				new String[] { String.valueOf(id) }, null, null, null);
 		
 		String cards = null;
 		if(cursor != null && cursor.moveToFirst()){
+			cardsId = cursor.getInt(cursor.getColumnIndex(COL_CARDSID));
 			cards = cursor.getString(cursor.getColumnIndex(COL_CARDS));
 		}
 		
@@ -353,7 +356,58 @@ public class DatabaseHelper {
 			}
 		}
 		
-		return list;
+		collection.cards = list;
+		collection.cardsId = cardsId;
+		return collection;
+	}
+	
+	/**
+	 * 更新卡牌组
+	 * @param collection
+	 */
+	public void updateCollection(Collection coll){
+		
+		int orange = 0, blue = 0, purple = 0;
+		
+		//生成所选卡牌字符串s
+		StringBuffer buffer = new StringBuffer();
+		for(int i = 0; i < coll.cards.size() ; i++){
+			Card tmp = coll.cards.get(i);
+			buffer.append(tmp.id + ",");
+			switch (tmp.rarity) {
+			case 4:
+				orange++;
+				break;
+			case 3:
+				purple++;
+				break;
+			case 2:
+				blue++;
+				break;
+			}
+		}
+		buffer.deleteCharAt(buffer.length() - 1);
+		
+		ContentValues cvColl = new ContentValues();
+		cvColl.put(COL_CLASS, coll.clas);
+		cvColl.put(COL_NAME, coll.name);
+		cvColl.put(COL_ORANGE, orange);
+		cvColl.put(COL_PURPLE, purple);
+		cvColl.put(COL_BLUE, blue);
+		
+		ContentValues cvCard = new ContentValues();
+		cvCard.put(COL_CARDS, buffer.toString());
+		
+		try {
+			mDatabase.beginTransaction();
+			mDatabase.update(TABLE_COLL, cvColl, COL_COLLID + " = ?", new String[]{String.valueOf(coll.id)});
+			mDatabase.update(TABLE_CARDS, cvCard, COL_CARDSID + " = ?", new String[]{String.valueOf(coll.cardsId)});
+			mDatabase.setTransactionSuccessful();
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			mDatabase.endTransaction();
+		}
 	}
 	
 	/**

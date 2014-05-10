@@ -62,8 +62,15 @@ public class CardSelectFragment extends Fragment implements OnScrollListener,
 		if(bundle != null){
 			clas = bundle.getInt("class");
 		}
-		cardAdapter = new CardAdapter(getActivity(), list);
+		
+		
 		activity = (CollectionEditActivity) getActivity();
+		HashMap<String, Integer> map = activity.selectedMap;
+		if(map != null){
+			cardAdapter = new CardAdapter(activity, list, map);
+		} else {
+			cardAdapter = new CardAdapter(activity, list);
+		}
 		
 		receiver = new CardSelectReceiver();
 		IntentFilter filter = new IntentFilter(getString(R.string.action_update_card_select));

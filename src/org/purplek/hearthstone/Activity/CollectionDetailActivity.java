@@ -9,6 +9,7 @@ import org.purplek.hearthstone.R;
 import org.purplek.hearthstone.adapter.CardAdapter;
 import org.purplek.hearthstone.database.DatabaseHelper;
 import org.purplek.hearthstone.model.Card;
+import org.purplek.hearthstone.model.Collection;
 import org.purplek.heartstone.utils.PhoneUtil;
 
 import android.app.Activity;
@@ -23,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -31,11 +33,10 @@ public class CollectionDetailActivity extends BaseActivity implements OnItemClic
 	private ListView listView;
 	private CardAdapter adapter;
 	private List<Card> list;
-	private List<Card> rawList;
-	private int clas;
 	private int collId;
 	private String collName;
 	private AlertDialog dialog;
+	private Collection mCollection;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +48,10 @@ public class CollectionDetailActivity extends BaseActivity implements OnItemClic
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
 		if(bundle != null){
-			collId = bundle.getInt(Constant.COLL_ID);
-			collName = bundle.getString(Constant.COLL_NAME);
-			clas = bundle.getInt(Constant.CLASS_KEY);
+			mCollection = new Collection();
+			mCollection.name = bundle.getString(Constant.COLL_NAME);
+			mCollection.clas = bundle.getInt(Constant.CLASS_KEY);
+			mCollection.id = bundle.getInt(Constant.COLL_ID);
 		}
 		
 		setTitle(collName);
@@ -108,7 +110,11 @@ public class CollectionDetailActivity extends BaseActivity implements OnItemClic
 				if(list.size() != 0){
 					list.clear();
 				}
-				rawList = helper.queryCollectedCards(collId);
+				Collection collection;
+				collection = helper.queryCollectedCards(mCollection.id);
+				List<Card> rawList = collection.cards;
+				mCollection.cards = rawList;
+				mCollection.cardsId = collection.cardsId;
 				for(int i = 0 ; i < rawList.size() ; i++){
 					if(i < rawList.size() - 1){
 						if(rawList.get(i).id == rawList.get(i+1).id){
@@ -157,8 +163,7 @@ public class CollectionDetailActivity extends BaseActivity implements OnItemClic
 		case R.id.action_edit_collection:
 			Intent intent = new Intent(this, CollectionEditActivity.class);
 			Bundle bundle = new Bundle();
-			bundle.putInt(Constant.CLASS_KEY, clas);
-			bundle.putSerializable(Constant.LIST, (Serializable)rawList);
+			bundle.putSerializable(Constant.COLLECTION, mCollection);
 			intent.putExtras(bundle);
 			startActivityForResult(intent, 1);
 			break;

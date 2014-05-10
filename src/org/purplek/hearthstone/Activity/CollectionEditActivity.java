@@ -1,6 +1,7 @@
 package org.purplek.hearthstone.Activity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.purplek.hearthstone.Constant;
@@ -26,8 +27,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 public class CollectionEditActivity extends BaseActivity {
 	
@@ -36,7 +40,11 @@ public class CollectionEditActivity extends BaseActivity {
 	private List<Fragment> list;
 	
 	public List<Card> cards;	// 保存卡牌的list
+	public HashMap<String, Integer> selectedMap;
 	private Dialog cancelDialog;
+	private Dialog editDialog;
+	
+	private Collection collection;
 	
 	private boolean isEditMode;
 	
@@ -53,22 +61,41 @@ public class CollectionEditActivity extends BaseActivity {
 		
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
-		if(bundle == null){
+//		if(bundle == null){
+//			clas = bundle.getInt(Constant.CLASS_KEY);
+//			isEditMode = false;
+//		} else {
+//			clas = bundle.getInt(Constant.CLASS_KEY);
+//			collection = (Collection) bundle.getSerializable(Constant.COLLECTION);
+//			List<Card> tmpList = collection.cards;
+//			if(tmpList != null){
+//				cards.addAll(tmpList);
+//				initSelectedMap(cards);
+//			}
+//			isEditMode = true;
+//		}
+		
+		if(bundle != null){
 			clas = intent.getIntExtra(Constant.CLASS_KEY, -1);
-			isEditMode = false;
-		} else {
-			clas = bundle.getInt(Constant.CLASS_KEY);
-			List<Card> tmpList = (List<Card>) bundle.getSerializable(Constant.LIST);
-			if(tmpList != null){
-				cards.addAll(tmpList);
+			collection = (Collection) bundle.getSerializable(Constant.COLLECTION);
+			if(collection != null){
+				clas = collection.clas;
+				List<Card> tmpList = collection.cards;
+				if(tmpList != null){
+					cards.addAll(tmpList);
+					initSelectedMap(cards);
+				}
+				isEditMode = true;
+			} else {
+				isEditMode = false;
 			}
-			isEditMode = true;
 		}
 		
 		
 		// 如果是编辑 传入编辑参数 如果是新建，则不需要
 		initViewPager();
 		initDialog();
+		initEditDialog();
 		setActivityTitle();
 		if(isEditMode){
 			viewPager.setCurrentItem(2);
@@ -88,6 +115,20 @@ public class CollectionEditActivity extends BaseActivity {
 		case 2:
 			setTitle(getString(R.string.card_stat) + count);
 			break;
+		}
+	}
+	
+	private void initSelectedMap(List<Card> list){
+		selectedMap = new HashMap<String, Integer>();
+		if(list == null || list.size() == 0){
+			return;
+		}
+		for(Card card : cards){
+			if(selectedMap.get(card.name) == null){
+				selectedMap.put(card.name, 1);
+			} else {
+				selectedMap.put(card.name, 2);
+			}
 		}
 	}
 	
@@ -156,8 +197,49 @@ public class CollectionEditActivity extends BaseActivity {
 		cancelDialog = builder.create();
 	}
 	
+	private void initEditDialog(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		final EditText input = new EditText(this);
+		input.setHint(R.string.enter_collection_name_hint);
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.MATCH_PARENT,
+				LinearLayout.LayoutParams.MATCH_PARENT);
+		input.setLayoutParams(lp);
+		builder.setView(input);
+		builder.setTitle(R.string.enter_collection_name);
+		if(isEditMode){
+			input.setText(collection.name);
+		}
+		builder.setPositiveButton(R.string.confirm, new OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				String name = input.getText().toString();
+				if(isEditMode){
+					updateCollection(name);
+				} else {
+					saveCollection(name);
+				}
+			}
+		});
+		builder.setNegativeButton(R.string.cancel, new OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				editDialog.dismiss();
+			}
+		});
+		editDialog = builder.create();
+	}
+	
 	private void showCancelDialog(){
 		cancelDialog.show();
+	}
+	
+	private void showEditDialog(){
+		editDialog.show();
 	}
 	
 	@Override
@@ -178,7 +260,7 @@ public class CollectionEditActivity extends BaseActivity {
 			showCancelDialog();
 			break;
 		case R.id.action_save_collection:
-			saveCollection();
+			showEditDialog();
 			break;
 		case R.id.action_cancel_collection:
 			showCancelDialog();
@@ -193,7 +275,7 @@ public class CollectionEditActivity extends BaseActivity {
 		showCancelDialog();
 	}
 
-	private void saveCollection(){
+	private void saveCollection(final String name){
 		
 		new Thread(new Runnable() {
 			
@@ -208,9 +290,28 @@ public class CollectionEditActivity extends BaseActivity {
 				Collection coll = new Collection();
 				coll.cards = cards;
 				coll.clas = clas;
-				coll.name = "test";
+				coll.name = name;
 				helper.insertCollection(coll);
 				handler.sendEmptyMessage(Constant.INSERT_SUCCESS);
+			}
+		}).start();
+	}
+	
+	private void updateCollection(final String name){
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if(cards.size() < 30){
+					handler.sendEmptyMessage(Constant.CARDS_NOT_ENOUGH);
+					return;
+				}
+				DatabaseHelper helper = DatabaseHelper.getInstance(CollectionEditActivity.this);
+				collection.cards = cards;
+				collection.name = name;
+				helper.updateCollection(collection);
+				handler.sendEmptyMessage(Constant.UPDATE_SUCCESS);
 			}
 		}).start();
 	}
@@ -227,6 +328,17 @@ public class CollectionEditActivity extends BaseActivity {
 			case Constant.INSERT_SUCCESS:
 				PhoneUtil.showToast(CollectionEditActivity.this, R.string.insert_success);
 				setResult(RESULT_OK);
+				if(editDialog.isShowing()){
+					editDialog.dismiss();
+				}
+				finish();
+				break;
+			case Constant.UPDATE_SUCCESS:
+				PhoneUtil.showToast(CollectionEditActivity.this, R.string.update_succes);
+				setResult(RESULT_OK);
+				if(editDialog.isShowing()){
+					editDialog.dismiss();
+				}
 				finish();
 				break;
 			}

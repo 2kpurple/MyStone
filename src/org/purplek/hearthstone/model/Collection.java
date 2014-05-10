@@ -1,5 +1,6 @@
 package org.purplek.hearthstone.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * @author purplekfung
  *
  */
-public class Collection {
+public class Collection implements Serializable {
 	public int id;
 	public int clas;
 	public List<Card> cards;
@@ -15,4 +16,5 @@ public class Collection {
 	public int orange;
 	public int purple;
 	public int blue;
+	public int cardsId;
 }

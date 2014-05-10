@@ -7,7 +7,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:divider="@null"
-        android:listSelector="@color/transparent"
-        android:scrollbars="@null" />
+        android:listSelector="@color/transparent" />
 
 </FrameLayout>

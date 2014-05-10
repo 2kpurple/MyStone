@@ -34,6 +34,7 @@
     <string name="edit">编辑</string>
     
     <string name="insert_success">添加成功</string>
+    <string name="update_succes">修改成功</string>
     <string name="remove_success">删除成功</string>
     
     <string name="select_class_card">选择职业卡牌</string>
@@ -43,6 +44,8 @@
     
     <string name="confirm_cancel">真的要取消吗？\n取消之后就不保存咯！</string>
     <string name="confirm_remove">真的要删除吗？</string>
+    <string name="enter_collection_name">起个好听的名字呗~</string>
+    <string name="enter_collection_name_hint">输入个名字</string>
     <string name="cards_not_enought">卡牌不够30张哦！</string>
     
     <string name="orange">橙</string>
