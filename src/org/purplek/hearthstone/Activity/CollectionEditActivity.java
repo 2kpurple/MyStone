@@ -38,15 +38,10 @@ public class CollectionEditActivity extends BaseActivity {
 	public List<Card> cards;	// 保存卡牌的list
 	private Dialog cancelDialog;
 	
+	private boolean isEditMode;
+	
 	private final static String COUNT_FORMAT = "(%d/30)";
 
-	/**
-	 * 这个activity 3个地方使用
-	 * Edit时使用，添加时使用，查看时使用
-	 * 查看时传入id
-	 * 添加时不传入
-	 * 编辑时传入list
-	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,15 +49,30 @@ public class CollectionEditActivity extends BaseActivity {
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
-		Intent intent = getIntent();
-		clas = intent.getIntExtra("class", -1);
-		
 		cards = new PriorityList<Card>();
+		
+		Intent intent = getIntent();
+		Bundle bundle = intent.getExtras();
+		if(bundle == null){
+			clas = intent.getIntExtra(Constant.CLASS_KEY, -1);
+			isEditMode = false;
+		} else {
+			clas = bundle.getInt(Constant.CLASS_KEY);
+			List<Card> tmpList = (List<Card>) bundle.getSerializable(Constant.LIST);
+			if(tmpList != null){
+				cards.addAll(tmpList);
+			}
+			isEditMode = true;
+		}
+		
 		
 		// 如果是编辑 传入编辑参数 如果是新建，则不需要
 		initViewPager();
 		initDialog();
 		setActivityTitle();
+		if(isEditMode){
+			viewPager.setCurrentItem(2);
+		}
 	}
 	
 	public void setActivityTitle(){

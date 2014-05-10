@@ -17,6 +17,7 @@ public class Constant {
     public static final String NUM = "num";
     
     public static final int DETAIL_FINISH = 201;
+    public static final int EDIT_FINISH = 202;
     
     public static final String[] COST_ARRAY = {"0", "1", "2", "3", "4", "5", "6", "7+"};
 }

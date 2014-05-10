@@ -111,6 +111,7 @@ public class CollectionSelectActivity extends BaseActivity implements OnItemClic
 		Bundle bundle = new Bundle();
 		bundle.putInt(Constant.COLL_ID, list.get(position).id);
 		bundle.putString(Constant.COLL_NAME, list.get(position).name);
+		bundle.putInt(Constant.CLASS_KEY, clas);
 		intent.putExtras(bundle);
 		startActivityForResult(intent, Constant.DETAIL_FINISH);
 	}

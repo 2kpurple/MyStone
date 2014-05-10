@@ -31,6 +31,8 @@ public class CollectionDetailActivity extends BaseActivity implements OnItemClic
 	private ListView listView;
 	private CardAdapter adapter;
 	private List<Card> list;
+	private List<Card> rawList;
+	private int clas;
 	private int collId;
 	private String collName;
 	private AlertDialog dialog;
@@ -46,7 +48,8 @@ public class CollectionDetailActivity extends BaseActivity implements OnItemClic
 		Bundle bundle = intent.getExtras();
 		if(bundle != null){
 			collId = bundle.getInt(Constant.COLL_ID);
-			collName = intent.getStringExtra(Constant.COLL_NAME);
+			collName = bundle.getString(Constant.COLL_NAME);
+			clas = bundle.getInt(Constant.CLASS_KEY);
 		}
 		
 		setTitle(collName);
@@ -102,17 +105,20 @@ public class CollectionDetailActivity extends BaseActivity implements OnItemClic
 			public void run() {
 				// TODO Auto-generated method stub
 				DatabaseHelper helper = DatabaseHelper.getInstance(CollectionDetailActivity.this);
-				List<Card> tmpList = helper.queryCollectedCards(collId);
-				for(int i = 0 ; i < tmpList.size() ; i++){
-					if(i < tmpList.size() - 1){
-						if(tmpList.get(i).id == tmpList.get(i+1).id){
-							adapter.getSelectedMap().put(tmpList.get(i).name, 2);
+				if(list.size() != 0){
+					list.clear();
+				}
+				rawList = helper.queryCollectedCards(collId);
+				for(int i = 0 ; i < rawList.size() ; i++){
+					if(i < rawList.size() - 1){
+						if(rawList.get(i).id == rawList.get(i+1).id){
+							adapter.getSelectedMap().put(rawList.get(i).name, 2);
 						} else {
-							list.add(tmpList.get(i));
+							list.add(rawList.get(i));
 						}
 					} else {
-						if(tmpList.get(i-1).id == tmpList.get(i).id){
-							list.add(tmpList.get(i));
+						if(rawList.get(i-1).id == rawList.get(i).id){
+							list.add(rawList.get(i));
 						}
 					}
 				}
@@ -149,7 +155,12 @@ public class CollectionDetailActivity extends BaseActivity implements OnItemClic
 			finish();
 			break;
 		case R.id.action_edit_collection:
-			
+			Intent intent = new Intent(this, CollectionEditActivity.class);
+			Bundle bundle = new Bundle();
+			bundle.putInt(Constant.CLASS_KEY, clas);
+			bundle.putSerializable(Constant.LIST, (Serializable)rawList);
+			intent.putExtras(bundle);
+			startActivityForResult(intent, 1);
 			break;
 		case R.id.action_remove_collection:
 			dialog.show();
@@ -179,6 +190,16 @@ public class CollectionDetailActivity extends BaseActivity implements OnItemClic
 		intent.putExtra(Constant.NUM, position);
 		intent.putExtra(Constant.LIST, (Serializable)list);
 		startActivity(intent);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		if(requestCode == 1){
+			if(resultCode == Activity.RESULT_OK){
+				queryData();
+			}
+		}
 	}
 	
 }
