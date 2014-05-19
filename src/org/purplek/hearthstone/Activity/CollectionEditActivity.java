@@ -12,7 +12,7 @@ import org.purplek.hearthstone.database.DatabaseHelper;
 import org.purplek.hearthstone.model.Card;
 import org.purplek.hearthstone.model.Collection;
 import org.purplek.hearthstone.support.PriorityList;
-import org.purplek.heartstone.utils.PhoneUtil;
+import org.purplek.hearthstone.utils.PhoneUtil;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

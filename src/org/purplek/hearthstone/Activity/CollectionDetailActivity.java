@@ -10,7 +10,7 @@ import org.purplek.hearthstone.adapter.CardAdapter;
 import org.purplek.hearthstone.database.DatabaseHelper;
 import org.purplek.hearthstone.model.Card;
 import org.purplek.hearthstone.model.Collection;
-import org.purplek.heartstone.utils.PhoneUtil;
+import org.purplek.hearthstone.utils.PhoneUtil;
 
 import android.app.Activity;
 import android.app.AlertDialog;

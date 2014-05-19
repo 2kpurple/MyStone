@@ -7,7 +7,7 @@ import org.purplek.hearthstone.Fragment.DisplayFragment;
 import org.purplek.hearthstone.Fragment.SettingsFragment;
 import org.purplek.hearthstone.database.DatabaseHelper;
 import org.purplek.hearthstone.model.Card;
-import org.purplek.heartstone.utils.SharePrefUtil;
+import org.purplek.hearthstone.utils.SharePrefUtil;
 
 import android.content.Context;
 import android.os.Handler;

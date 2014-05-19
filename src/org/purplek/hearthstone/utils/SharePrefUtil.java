@@ -1,4 +1,4 @@
-package org.purplek.heartstone.utils;
+package org.purplek.hearthstone.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

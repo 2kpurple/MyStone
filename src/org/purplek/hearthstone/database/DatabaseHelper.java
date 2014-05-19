@@ -10,7 +10,7 @@ import android.util.Log;
 
 import org.purplek.hearthstone.model.Card;
 import org.purplek.hearthstone.model.Collection;
-import org.purplek.heartstone.utils.SharePrefUtil;
+import org.purplek.hearthstone.utils.SharePrefUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
