@@ -28,6 +28,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -216,6 +217,10 @@ public class CollectionEditActivity extends BaseActivity {
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				String name = input.getText().toString();
+				if(TextUtils.isEmpty(name)){
+					PhoneUtil.showToast(CollectionEditActivity.this, R.string.collection_name_cannot_empty);
+					return;
+				}
 				if(isEditMode){
 					updateCollection(name);
 				} else {
@@ -260,7 +265,11 @@ public class CollectionEditActivity extends BaseActivity {
 			showCancelDialog();
 			break;
 		case R.id.action_save_collection:
-			showEditDialog();
+			if(cards.size() < 30){
+				handler.sendEmptyMessage(Constant.CARDS_NOT_ENOUGH);
+			} else {
+				showEditDialog();
+			}
 			break;
 		case R.id.action_cancel_collection:
 			showCancelDialog();
@@ -282,10 +291,6 @@ public class CollectionEditActivity extends BaseActivity {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				if(cards.size() < 30){
-					handler.sendEmptyMessage(Constant.CARDS_NOT_ENOUGH);
-					return;
-				}
 				DatabaseHelper helper = DatabaseHelper.getInstance(CollectionEditActivity.this);
 				Collection coll = new Collection();
 				coll.cards = cards;
@@ -303,10 +308,6 @@ public class CollectionEditActivity extends BaseActivity {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				if(cards.size() < 30){
-					handler.sendEmptyMessage(Constant.CARDS_NOT_ENOUGH);
-					return;
-				}
 				DatabaseHelper helper = DatabaseHelper.getInstance(CollectionEditActivity.this);
 				collection.cards = cards;
 				collection.name = name;

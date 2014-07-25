@@ -34,7 +34,6 @@ public class CollectionDetailActivity extends BaseActivity implements OnItemClic
 	private CardAdapter adapter;
 	private List<Card> list;
 	private int collId;
-	private String collName;
 	private AlertDialog dialog;
 	private Collection mCollection;
 	
@@ -54,7 +53,7 @@ public class CollectionDetailActivity extends BaseActivity implements OnItemClic
 			mCollection.id = bundle.getInt(Constant.COLL_ID);
 		}
 		
-		setTitle(collName);
+		setTitle(mCollection.name);
 		
 		initList();
 		initDialog();

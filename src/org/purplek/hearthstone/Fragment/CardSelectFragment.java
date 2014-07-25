@@ -245,6 +245,5 @@ public class CardSelectFragment extends Fragment implements OnScrollListener,
 				}
 			}
 		}
-		
 	}
 }

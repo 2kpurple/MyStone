@@ -48,6 +48,8 @@
     <string name="enter_collection_name_hint">输入个名字</string>
     <string name="cards_not_enought">卡牌不够30张哦！</string>
     
+    <string name="collection_name_cannot_empty">名字不能为空哦~</string>
+    
     <string name="orange">橙</string>
     <string name="blue">蓝</string>
     <string name="purple">紫</string>
